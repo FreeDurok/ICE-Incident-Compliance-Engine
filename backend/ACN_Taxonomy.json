@@ -1,0 +1,1457 @@
+{
+    "taxonomy": {
+        "name": "TC-ACN",
+        "version": "2.0",
+        "source": {
+            "name": "ACN Tassonomia Cyber CLEAR",
+            "url": "https://www.acn.gov.it/portale/documents/20119/552690/ACN_Tassonomia_Cyber_CLEAR.pdf/9595cc35-1c0b-4007-07b2-8f0468e5b82e"
+        },
+        "macrocategories": [
+            {
+                "code": "BC",
+                "name": "Baseline Characterization",
+                "description": "Informazioni necessarie a caratterizzare gli impatti, le cause, la gravità dell’evento nonché l’area geografica in cui si trovano i beni informatici impattati.",
+                "predicates": [
+                    {
+                        "code": "IM",
+                        "name": "Impact",
+                        "description": "Il predicato Impact si riferisce alla perturbazione causata da un evento cyber sugli asset informatici di un’organizzazione.",
+                        "has_subpredicates": false,
+                        "subpredicates": [],
+                        "values": [
+                            {
+                                "code": "BC:IM_AC",
+                                "label": "Account Compromise",
+                                "description": "Identifica gli eventi cyber che hanno avuto come effetto la compromissione di un account utente o di servizio. È possibile specificare il tipo di account compromesso tramite il predicato Involved Asset."
+                            },
+                            {
+                                "code": "BC:IM_AP",
+                                "label": "Application Compromise",
+                                "description": "Identifica gli eventi cyber che hanno avuto come effetto la compromissione di un’applicazione o di un servizio, incluse applicazioni Web, Mobile, Database, ecc. È possibile specificare il tipo di application compromise tramite il predicato Involved Asset."
+                            },
+                            {
+                                "code": "BC:IM_AV",
+                                "label": "Availability",
+                                "description": "Identifica gli eventi nei quali attività malevole hanno causato effetti sulla disponibilità del sistema o del servizio erogato. Se viene utilizzato questo valore, deve essere specificato anche il predicato Availability."
+                            },
+                            {
+                                "code": "BC:IM_DX",
+                                "label": "Data Exfiltration",
+                                "description": "Identifica gli eventi cyber in cui è stata riscontrata la compromissione della riservatezza delle informazioni presenti su un bene informatico. La perdita o fuga dei dati può avvenire tramite attività malevole (es. compromissione di un file server) o accidentalmente (es. database esposto su Internet)."
+                            },
+                            {
+                                "code": "BC:IM_DE",
+                                "label": "Data Exposure",
+                                "description": "Si riferisce alla divulgazione non autorizzata di dati sensibili o riservati, causata da vulnerabilità, errori di configurazione o pratiche inadeguate di gestione delle informazioni. Può portare alla diffusione di dati personali, finanziari o aziendali con rischi di frodi o danni reputazionali."
+                            },
+                            {
+                                "code": "BC:IM_DM",
+                                "label": "Data Manipulation",
+                                "description": "Identifica gli eventi cyber in cui è stata compromessa l’integrità delle informazioni presenti su un bene informatico, incluse modifica o distruzione dei dati da parte di attori malevoli."
+                            },
+                            {
+                                "code": "BC:IM_NO",
+                                "label": "No Impact",
+                                "description": "Identifica un evento cyber che avrebbe potuto compromettere disponibilità, autenticità, integrità o riservatezza dei dati o servizi, ma l’impatto è stato evitato o non si è verificato. Esempio: una e-mail phishing riconosciuta tempestivamente dall’utente."
+                            },
+                            {
+                                "code": "BC:IM_SY",
+                                "label": "System Compromise",
+                                "description": "Identifica gli eventi cyber che hanno avuto come effetto la compromissione di un bene informatico, ad esempio alterandone l’integrità."
+                            },
+                            {
+                                "code": "BC:IM_OT",
+                                "label": "Other",
+                                "description": "Identifica eventi cyber relativi a Impact non classificabili negli altri valori definiti nel predicato."
+                            }
+                        ]
+                    },
+                    {
+                        "code": "RO",
+                        "name": "Root Cause",
+                        "description": "Categorizza le cause che hanno determinato uno specifico evento, sia di natura accidentale che deliberata.",
+                        "has_subpredicates": false,
+                        "subpredicates": [],
+                        "values": [
+                            {
+                                "code": "BC:RO_HU",
+                                "label": "Human Errors",
+                                "description": "Identifica gli eventi provocati da un errore umano non intenzionale. Esempio: operazione errata che influisce sulla prevista funzionalità di un bene informatico."
+                            },
+                            {
+                                "code": "BC:RO_MA",
+                                "label": "Malicious Actions",
+                                "description": "Identifica qualsiasi tentativo di compromettere l’integrità, la confidenzialità o la disponibilità di un bene informatico."
+                            },
+                            {
+                                "code": "BC:RO_NA",
+                                "label": "Natural Phenomena",
+                                "description": "Identifica gli eventi causati da fenomeni naturali, come terremoti, valanghe o esondazioni."
+                            },
+                            {
+                                "code": "BC:RO_SY",
+                                "label": "System Failure",
+                                "description": "Identifica un evento imprevisto in cui un sistema cessa di funzionare secondo le specifiche progettuali, causando perdita o degrado significativo del servizio."
+                            },
+                            {
+                                "code": "BC:RO_TH",
+                                "label": "Third Party Failure",
+                                "description": "Identifica l’interruzione o degradazione delle prestazioni di un sistema principale attribuibile a disfunzioni o guasti di servizi forniti da terze parti."
+                            }
+                        ]
+                    },
+                    {
+                        "code": "SE",
+                        "name": "Severity",
+                        "description": "Indica la gravità dell’impatto di un evento cyber, classificata su quattro livelli.",
+                        "has_subpredicates": false,
+                        "subpredicates": [],
+                        "values": [
+                            {
+                                "code": "BC:SE_HI",
+                                "label": "High",
+                                "description": "Indica un evento cyber in cui: l’organizzazione non è più in grado di fornire uno o più servizi essenziali; dati personali o proprietari sono stati modificati, cancellati o esfiltrati; il ripristino dall’incidente non è possibile (es. dati sensibili esfiltrati e diffusi o perdita irreversibile dovuta a ransomware)."
+                            },
+                            {
+                                "code": "BC:SE_ME",
+                                "label": "Medium",
+                                "description": "Indica un evento cyber in cui: l’organizzazione può fornire un servizio essenziale solo a parte dell’utenza; sono stati rilevati accessi o esfiltrazioni di dati sensibili o proprietari; il ripristino è possibile ma con tempistiche non note, richiedendo risorse aggiuntive o supporto esterno."
+                            },
+                            {
+                                "code": "BC:SE_LO",
+                                "label": "Low",
+                                "description": "Indica un evento cyber in cui: l’organizzazione resta in grado di fornire tutti i servizi essenziali, ma con efficienza ridotta; è stato rilevato un accesso non autorizzato a dati sensibili o proprietari; il ripristino è possibile con tempistiche definite, anche attraverso risorse aggiuntive."
+                            },
+                            {
+                                "code": "BC:SE_NO",
+                                "label": "None",
+                                "description": "Indica un evento cyber in cui: non ci sono effetti sulla capacità dell’organizzazione di erogare servizi; nessuna informazione è stata oggetto di accesso, esfiltrazione, modifica o cancellazione; il tempo di ripristino è prevedibile tramite risorse interne esistenti."
+                            }
+                        ]
+                    },
+                    {
+                        "code": "VG",
+                        "name": "Victim Geography",
+                        "description": "Identifica l’area geografica in cui si trovano i beni informatici interessati dall’evento cyber.",
+                        "has_subpredicates": false,
+                        "subpredicates": [],
+                        "values": [
+                            {
+                                "code": "BC:VG_IT",
+                                "label": "Italy",
+                                "description": "L’evento cyber ha avuto un impatto su beni informatici localizzati in Italia."
+                            },
+                            {
+                                "code": "BC:VG_AF",
+                                "label": "Africa",
+                                "description": "L’evento cyber ha avuto un impatto su beni informatici localizzati geograficamente nel continente africano."
+                            },
+                            {
+                                "code": "BC:VG_AM",
+                                "label": "America",
+                                "description": "L’evento cyber ha avuto un impatto su beni informatici localizzati geograficamente nel continente americano."
+                            },
+                            {
+                                "code": "BC:VG_AN",
+                                "label": "Antarctica",
+                                "description": "L’evento cyber ha avuto un impatto su beni informatici localizzati geograficamente nel continente antartico."
+                            },
+                            {
+                                "code": "BC:VG_AS",
+                                "label": "Asia",
+                                "description": "L’evento cyber ha avuto un impatto su beni informatici localizzati geograficamente nel continente asiatico."
+                            },
+                            {
+                                "code": "BC:VG_EU",
+                                "label": "Europe",
+                                "description": "L’evento cyber ha avuto un impatto su beni informatici localizzati geograficamente nel continente europeo."
+                            },
+                            {
+                                "code": "BC:VG_OC",
+                                "label": "Oceania",
+                                "description": "L’evento cyber ha avuto un impatto su beni informatici localizzati nella zona continentale dell’Oceania."
+                            },
+                            {
+                                "code": "BC:VG_GL",
+                                "label": "Global",
+                                "description": "L’evento cyber ha avuto un impatto su beni informatici distribuiti in più paesi o con potenziale impatto globale."
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "code": "TT",
+                "name": "Threat Type",
+                "description": "Informazioni che facilitano la determinazione degli aspetti tecnici dell’evento cyber, fornendo dettagli riguardanti le azioni effettuate prima, durante e dopo l’evento.",
+                "predicates": [
+                    {
+                        "code": "AC",
+                        "name": "Active Scanning",
+                        "description": "Identifica tecniche di scansione attiva utilizzate da attori malevoli che prevedono un contatto diretto con il sistema o la rete target, finalizzate all’analisi, enumerazione o rilevazione di vulnerabilità.",
+                        "has_subpredicates": false,
+                        "subpredicates": [],
+                        "values": [
+                            {
+                                "code": "TT:AC_CR",
+                                "label": "Credential Scanning",
+                                "description": "Identifica eventi in cui un attore malevolo esegue scansioni attive per rilevare credenziali deboli, mal configurate o esposte. Include attacchi a forza bruta e account discovery finalizzati all’individuazione di account validi."
+                            },
+                            {
+                                "code": "TT:AC_NE",
+                                "label": "Network Scanning",
+                                "description": "Identifica eventi in cui un attore malevolo utilizza tecniche per individuare servizi in esecuzione su host remoti o su sistemi della rete target. Include port scan, network mapping e OS fingerprinting."
+                            },
+                            {
+                                "code": "TT:AC_VU",
+                                "label": "Vulnerability Scanning",
+                                "description": "Identifica eventi in cui un attore malevolo utilizza tecniche mirate all’individuazione di vulnerabilità su un bene informatico, con lo scopo di mappare la superficie d’attacco."
+                            },
+                            {
+                                "code": "TT:AC_OT",
+                                "label": "Other",
+                                "description": "Identifica eventi relativi ad Active Scanning che non rientrano nelle altre categorie definite."
+                            }
+                        ]
+                    },
+                    {
+                        "code": "AV",
+                        "name": "Availability",
+                        "description": "Indica la causa dell’impatto sulla disponibilità di un sistema o servizio informatico, riferita alla capacità del sistema di garantire accesso e uso tempestivo e continuo delle informazioni.",
+                        "has_subpredicates": false,
+                        "subpredicates": [],
+                        "values": [
+                            {
+                                "code": "TT:AV_DA",
+                                "label": "Data Encryption",
+                                "description": "Evento in cui un attore malevolo applica algoritmi di cifratura ai dati custoditi in un sistema compromesso, rendendoli inaccessibili senza il consenso del proprietario. Tipicamente associato a ransomware, con impatto diretto sulla disponibilità dei dati e dei servizi."
+                            },
+                            {
+                                "code": "TT:AV_DD",
+                                "label": "DDoS",
+                                "description": "Distributed Denial of Service: attacco da sorgenti multiple e distribuite che compromette la disponibilità di un sistema o servizio tramite esaurimento delle risorse di rete, CPU o memoria."
+                            },
+                            {
+                                "code": "TT:AV_DO",
+                                "label": "DoS",
+                                "description": "Denial of Service: attacco da singola sorgente volto a compromettere la disponibilità di un sistema o servizio mediante saturazione delle risorse di rete, elaborazione o memoria."
+                            },
+                            {
+                                "code": "TT:AV_MI",
+                                "label": "Misconfiguration",
+                                "description": "Evento non malevolo in cui una configurazione errata o subottimale compromette la disponibilità di un servizio. Esempio: errata configurazione di un apparato di rete che causa perdita totale o parziale del servizio. Associato tipicamente a Human Errors (BC:RO_HU)."
+                            },
+                            {
+                                "code": "TT:AV_OU",
+                                "label": "Outage",
+                                "description": "Evento non malevolo in cui la disponibilità di un sistema è compromessa da cause naturali o accidentali, quali disastri naturali, guasti di sistemi di raffreddamento o interruzioni elettriche. L’indisponibilità deriva da un’azione non intenzionale."
+                            },
+                            {
+                                "code": "TT:AV_OT",
+                                "label": "Other",
+                                "description": "Evento in cui si verifica una perdita di disponibilità non riconducibile alle altre categorie definite nel predicato Availability."
+                            }
+                        ]
+                    },
+                    {
+                        "code": "BA",
+                        "name": "Brand Abuse",
+                        "description": "Identifica azioni intenzionali che sfruttano marchi, loghi o contenuti legittimi per trarre in inganno utenti, come phishing, cybersquatting, typosquatting o imitazione fraudolenta.",
+                        "has_subpredicates": false,
+                        "subpredicates": [],
+                        "values": [
+                            {
+                                "code": "TT:BA_AI",
+                                "label": "Account Impersonation",
+                                "description": "Attività in cui un attore malevolo si finge un’altra persona, sistema o organizzazione per ottenere accesso non autorizzato o trarre in inganno la vittima. Può includere compromissione o creazione di account."
+                            },
+                            {
+                                "code": "TT:BA_CS",
+                                "label": "Cybersquatting",
+                                "description": "Registrazione malevola di nomi di dominio identici o simili a marchi o nomi aziendali al fine di deviare traffico, ottenere profitti, diffondere malware o rubare informazioni."
+                            },
+                            {
+                                "code": "TT:BA_NI",
+                                "label": "Name Logo Impersonation",
+                                "description": "Imitazione fraudolenta del nome o logo di entità legittime per ingannare la vittima, tipicamente in campagne di phishing o ingegneria sociale."
+                            },
+                            {
+                                "code": "TT:BA_TS",
+                                "label": "Typosquatting",
+                                "description": "Registrazione di domini simili a quelli legittimi con variazioni ortografiche minime (es. errori di digitazione) allo scopo di deviare traffico, condurre phishing o diffondere malware."
+                            },
+                            {
+                                "code": "TT:BA_OT",
+                                "label": "Other",
+                                "description": "Eventi correlati a Brand Abuse non classificabili negli altri valori definiti nel predicato."
+                            }
+                        ]
+                    },
+                    {
+                        "code": "FR",
+                        "name": "Fraud",
+                        "description": "Azioni intenzionali compiute con l’obiettivo di ottenere vantaggi economici o di altra natura tramite inganno o manipolazione.",
+                        "has_subpredicates": false,
+                        "subpredicates": [],
+                        "values": [
+                            {
+                                "code": "TT:FR_BR",
+                                "label": "Brand Abuse",
+                                "description": "Attività fraudolenta che sfrutta marchi e reputazione di un’organizzazione per creare siti, campagne o contenuti falsi a fini criminali."
+                            },
+                            {
+                                "code": "TT:FR_EX",
+                                "label": "Extortion",
+                                "description": "Coercizione tramite minacce per ottenere benefici economici o altri vantaggi. Include ransomware e minacce di divulgazione di dati."
+                            },
+                            {
+                                "code": "TT:FR_MA",
+                                "label": "Masquerade",
+                                "description": "Assunzione fraudolenta dell’identità di utenti, dispositivi o entità fidate allo scopo di eludere controlli e ottenere accessi non autorizzati."
+                            },
+                            {
+                                "code": "TT:FR_RE",
+                                "label": "Resource Misuse",
+                                "description": "Uso non autorizzato delle risorse di un sistema o rete. Esempio: mining illecito o esecuzione di attacchi da infrastrutture aziendali."
+                            },
+                            {
+                                "code": "TT:FR_SP",
+                                "label": "Spam",
+                                "description": "Invio massivo di messaggi indesiderati o non richiesti, spesso con finalità commerciali o fraudolente, tramite email, SMS o social."
+                            },
+                            {
+                                "code": "TT:FR_OT",
+                                "label": "Other",
+                                "description": "Eventi fraudolenti non classificabili negli altri valori del predicato."
+                            }
+                        ]
+                    },
+                    {
+                        "code": "DE",
+                        "name": "Data Exposure",
+                        "description": "Identifica eventi cyber in cui si verifica una violazione di sicurezza dei dati personali o proprietari, con divulgazione involontaria o non autorizzata che compromette la riservatezza delle informazioni.",
+                        "has_subpredicates": false,
+                        "subpredicates": [],
+                        "values": [
+                            {
+                                "code": "TT:DE_AU",
+                                "label": "Authentication Data",
+                                "description": "Identifica gli eventi cyber nei quali è stata rilevata una violazione di sicurezza dei dati relativi all’autenticazione degli utenti del bene informatico impattato, come username e password."
+                            },
+                            {
+                                "code": "TT:DE_BU",
+                                "label": "Business Data",
+                                "description": "Identifica gli eventi cyber nei quali è stata rilevata una violazione di sicurezza dei dati relativi all’azienda, quali dati sulle sue attività, contratti, proprietà intellettuale, ecc."
+                            },
+                            {
+                                "code": "TT:DE_FI",
+                                "label": "Financial Data",
+                                "description": "Identifica gli eventi cyber nei quali è stata rilevata una violazione di sicurezza dei dati relativi alla sfera finanziaria dell’azienda, come entrate, uscite, transazioni, dati di carte di credito, ecc."
+                            },
+                            {
+                                "code": "TT:DE_PD",
+                                "label": "Personal Data",
+                                "description": "Identifica gli eventi cyber nei quali si è verificata una violazione di sicurezza dei dati personali, ovvero informazioni che rendono identificabile una persona fisica e riguardano caratteristiche, abitudini, relazioni, salute, stato economico, ecc."
+                            },
+                            {
+                                "code": "TT:DE_OT",
+                                "label": "Other",
+                                "description": "Identifica eventi cyber relativi a Data Exposure non classificabili negli altri valori del predicato."
+                            }
+                        ]
+                    },
+                    {
+                        "code": "IG",
+                        "name": "Information Gathering",
+                        "description": "Raccoglie tecniche, tattiche e procedure utilizzate per ottenere il maggior numero possibile di informazioni su un obiettivo (utente, applicazione, sistema o rete).",
+                        "has_subpredicates": false,
+                        "subpredicates": [],
+                        "values": [
+                            {
+                                "code": "TT:IG_AC",
+                                "label": "Active Scanning",
+                                "description": "Eventi in cui un attore malevolo raccoglie informazioni mediante scansione attiva, con contatto diretto verso il bene target. I dettagli sono specificabili tramite il predicato Active Scanning (§ 3.2.1)."
+                            },
+                            {
+                                "code": "TT:IG_SN",
+                                "label": "Sniffing",
+                                "description": "Eventi in cui un attore non autorizzato usa tecniche/strumenti per acquisire pacchetti di rete al fine di rubare dati, monitorare attività o raccogliere informazioni (es. cattura di header, credenziali o token non cifrati)."
+                            },
+                            {
+                                "code": "TT:IG_SO",
+                                "label": "Social Engineering",
+                                "description": "Eventi in cui un attore malevolo sfrutta tecniche di ingegneria sociale per persuadere un individuo a fornire informazioni personali, credenziali o a compiere azioni come installare malware, facendo leva su aspetti psicologici ed emotivi."
+                            },
+                            {
+                                "code": "TT:IG_OT",
+                                "label": "Other",
+                                "description": "Eventi cyber relativi a Information Gathering non classificabili negli altri valori definiti."
+                            }
+                        ]
+                    },
+                    {
+                        "code": "MA",
+                        "name": "Malicious Code",
+                        "description": "Software o porzioni di codice potenzialmente dannose che, una volta eseguite, possono compromettere riservatezza, integrità e disponibilità di un sistema.",
+                        "has_subpredicates": false,
+                        "subpredicates": [],
+                        "values": [
+                            {
+                                "code": "TT:MA_BA",
+                                "label": "Backdoor",
+                                "description": "Malware che fornisce accesso secondario e remoto al sistema compromesso, consentendo esecuzione di comandi e trasferimento file."
+                            },
+                            {
+                                "code": "TT:MA_BK",
+                                "label": "Banker",
+                                "description": "Trojan bancario progettato per sottrarre credenziali e informazioni finanziarie intercettando comunicazioni del browser."
+                            },
+                            {
+                                "code": "TT:MA_BO",
+                                "label": "Bot",
+                                "description": "Software che può agire come bot malware per creare botnet e svolgere attività malevole su sistemi compromessi."
+                            },
+                            {
+                                "code": "TT:MA_CO",
+                                "label": "Coin Miner",
+                                "description": "Malware che sfrutta il sistema target per estrarre criptovalute senza consenso dell’utente."
+                            },
+                            {
+                                "code": "TT:MA_EX",
+                                "label": "Exploit Kit",
+                                "description": "Strumenti progettati per sfruttare vulnerabilità su reti, sistemi o applicazioni con l’obiettivo di compromettere i beni informatici."
+                            },
+                            {
+                                "code": "TT:MA_HA",
+                                "label": "Hacking Tool",
+                                "description": "Programmi utilizzati per violare misure di sicurezza; possono essere usati anche legittimamente. Esempi: PsExec, Mimikatz, Cobalt Strike."
+                            },
+                            {
+                                "code": "TT:MA_IN",
+                                "label": "Information Stealer",
+                                "description": "Malware orientato alla raccolta illegittima di credenziali, dati personali o finanziari. Keylogger e spyware rientrano nella categoria."
+                            },
+                            {
+                                "code": "TT:MA_LO",
+                                "label": "Loader",
+                                "description": "Malware progettato per scaricare ed eseguire ulteriori componenti malevoli (dropper, downloader)."
+                            },
+                            {
+                                "code": "TT:MA_PO",
+                                "label": "Potentially Unwanted Program",
+                                "description": "Software indesiderato che, pur non essendo malware, può rappresentare un rischio per privacy e sicurezza."
+                            },
+                            {
+                                "code": "TT:MA_RA",
+                                "label": "Ransomware",
+                                "description": "Malware che cifra i dati della vittima e può esfiltrarli, richiedendo un riscatto tramite ransom notes."
+                            },
+                            {
+                                "code": "TT:MA_RE",
+                                "label": "Remote Access Tool",
+                                "description": "Malware che consente controllo remoto non autorizzato del sistema compromesso, inclusi trasferimento dati ed esecuzione comandi."
+                            },
+                            {
+                                "code": "TT:MA_RO",
+                                "label": "Rootkit",
+                                "description": "Malware sofisticato progettato per nascondere la propria presenza e ottenere privilegi elevati, alterando funzioni e strutture del sistema operativo."
+                            },
+                            {
+                                "code": "TT:MA_TR",
+                                "label": "Trojan",
+                                "description": "Software che si presenta come legittimo ma installa e avvia ulteriori malware, permettendo attività malevole varie."
+                            },
+                            {
+                                "code": "TT:MA_VI",
+                                "label": "Virus",
+                                "description": "Software in grado di autoreplicarsi infettando programmi, alterandone il funzionamento e potenzialmente causando perdita di dati o compromissione."
+                            },
+                            {
+                                "code": "TT:MA_WE",
+                                "label": "Webshell",
+                                "description": "Script o programma installato su server web compromessi per garantire accesso persistente non autorizzato."
+                            },
+                            {
+                                "code": "TT:MA_WI",
+                                "label": "Wiper",
+                                "description": "Malware progettato per eliminare irreversibilmente i dati sul sistema target, con finalità di sabotaggio."
+                            },
+                            {
+                                "code": "TT:MA_WO",
+                                "label": "Worm",
+                                "description": "Malware in grado di autoreplicarsi autonomamente su una rete, sfruttando vulnerabilità o condivisioni di rete per propagarsi."
+                            },
+                            {
+                                "code": "TT:MA_UN",
+                                "label": "Unknown",
+                                "description": "Codice malevolo rilevato ma non classificabile per mancanza di informazioni sufficienti sulla tipologia."
+                            }
+                        ]
+                    },
+                    {
+                        "code": "SO",
+                        "name": "Social Engineering",
+                        "description": "Identifica eventi in cui un attore malevolo sfrutta tecniche e tattiche psicologiche per persuadere un individuo a compiere azioni che comportano conseguenze nel dominio cyber, come il download di malware o la condivisione di informazioni sensibili.",
+                        "has_subpredicates": false,
+                        "subpredicates": [],
+                        "values": [
+                            {
+                                "code": "TT:SO_BA",
+                                "label": "Baiting",
+                                "description": "Identifica attività fraudolente in cui un attore malevolo attira la vittima mediante un’esca, come la promessa di un bene o di un vantaggio. La superficie di attacco può includere sia contesti online sia fisici. L’attaccante sfrutta la curiosità per indurre la vittima a inserire dati personali, scaricare malware o interagire con dispositivi USB usati come esca."
+                            },
+                            {
+                                "code": "TT:SO_PH",
+                                "label": "Phishing",
+                                "description": "Identifica eventi in cui la vittima viene contattata tramite email o sistemi di messaggistica da un attore malevolo allo scopo di eseguire codice malevolo o visitare risorse artefatte per carpire dati personali, bancari o credenziali. Può essere parte di attacchi più complessi."
+                            },
+                            {
+                                "code": "TT:SO_SM",
+                                "label": "Smishing",
+                                "description": "Identifica eventi in cui la vittima viene contattata tramite SMS da un attore malevolo allo scopo di indurla a eseguire codice malevolo (es. false app mobile) o a visitare risorse artefatte per carpire dati personali, bancari o credenziali. Può essere parte di attacchi più ampi."
+                            },
+                            {
+                                "code": "TT:SO_SP",
+                                "label": "Spear-Phishing",
+                                "description": "Indica una forma mirata di phishing contro target specifici tramite messaggi personalizzati provenienti da mittenti apparentemente legittimi. L’attacco mira a carpire informazioni sensibili o indurre l’utente a eseguire allegati/link malevoli. Spesso prevede tecniche di social engineering come il monitoraggio dei social media."
+                            },
+                            {
+                                "code": "TT:SO_VI",
+                                "label": "Vishing",
+                                "description": "Identifica eventi in cui la vittima viene contattata tramite comunicazioni vocali da attori criminali per indurla a eseguire codice malevolo, fornire dati aziendali/personali/bancari, credenziali o trasferire denaro. Può essere utilizzato anche come fase preliminare di ulteriori attacchi."
+                            },
+                            {
+                                "code": "TT:SO_WA",
+                                "label": "Watering-Hole",
+                                "description": "Identifica eventi in cui l’attaccante compromette siti web regolarmente visitati da un gruppo specifico di utenti allo scopo di infettare indirettamente la vittima tramite la compromissione dell’applicazione Web utilizzata."
+                            },
+                            {
+                                "code": "TT:SO_OT",
+                                "label": "Other",
+                                "description": "Identifica eventi relativi a Social Engineering non classificabili nelle altre categorie del predicato."
+                            }
+                        ]
+                    },
+                    {
+                        "code": "VU",
+                        "name": "Vulnerability",
+                        "description": "Identifica la tipologia di vulnerabilità che interessa un prodotto o servizio o che è connessa a uno specifico evento cyber.",
+                        "has_subpredicates": false,
+                        "subpredicates": [],
+                        "values": [
+                            {
+                                "code": "TT:VU_0-",
+                                "label": "0-Day Vulnerability",
+                                "description": "Bene informatico affetto da una vulnerabilità non nota pubblicamente e potenzialmente sfruttabile per compromettere integrità, riservatezza e disponibilità del sistema."
+                            },
+                            {
+                                "code": "TT:VU_N-",
+                                "label": "n-Day Vulnerability",
+                                "description": "Vulnerabilità inizialmente 0-day che è stata resa pubblica da più di un giorno. Può essere ancora sfruttabile prima dell'installazione della patch o workaround."
+                            },
+                            {
+                                "code": "TT:VU_SE",
+                                "label": "Security Misconfiguration",
+                                "description": "Configurazione errata di un bene informatico che introduce rischi di sicurezza sfruttabili da un attaccante. Esempi: mancato hardening, gestione impropria dei permessi, funzionalità non protette."
+                            },
+                            {
+                                "code": "TT:VU_UN",
+                                "label": "Unwanted Exposed Services",
+                                "description": "Servizi di rete esposti non raccomandati, che ampliano la superficie di attacco e possono essere sfruttati per compromissioni o DDoS reflection."
+                            },
+                            {
+                                "code": "TT:VU_WE",
+                                "label": "Weak Cryptography",
+                                "description": "Uso improprio o debole di meccanismi crittografici che porta a esposizione di dati sensibili, perdita di chiavi, interruzione autenticazione o sessioni non sicure."
+                            },
+                            {
+                                "code": "TT:VU_PC",
+                                "label": "Proof-of-concept",
+                                "description": "Disponibilità di una dimostrazione tecnica che valida la presenza di una vulnerabilità e ne mostra lo sfruttamento in un sistema o software."
+                            },
+                            {
+                                "code": "TT:VU_OT",
+                                "label": "Other",
+                                "description": "Eventi cyber relativi a Vulnerability non classificabili negli altri valori definiti."
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "code": "TA",
+                "name": "Threat Actor",
+                "description": "Informazioni riguardanti l’attore, eventualmente malevolo, che avrebbe provocato l’evento.",
+                "predicates": [
+                    {
+                        "code": "AM",
+                        "name": "Adversary Motivation",
+                        "description": "Identifica, se note, le motivazioni che hanno spinto l’attore malevolo a compiere l’attività illecita o malevola.",
+                        "has_subpredicates": false,
+                        "subpredicates": [],
+                        "values": [
+                            {
+                                "code": "TA:AM_DE",
+                                "label": "Destruction",
+                                "description": "Attività malevole finalizzate a danneggiare un bene informatico, comprometterne il funzionamento, interrompere servizi o impedirne l’accesso. Tipico degli attacchi che impiegano malware wiper. Non applicabile ai ransomware, generalmente motivati dal profitto."
+                            },
+                            {
+                                "code": "TA:AM_ES",
+                                "label": "Espionage",
+                                "description": "Attività indebite finalizzate all’acquisizione di dati sensibili, proprietari o classificati per vantaggio economico, competitivo o politico. Include furto di segreti industriali e informazioni classificate."
+                            },
+                            {
+                                "code": "TA:AM_ID",
+                                "label": "Ideology",
+                                "description": "Attività malevole finalizzate a diffondere un messaggio ideologico verso l’organizzazione colpita, utenti o terze parti. Tipicamente attribuite a gruppi hacktivisti."
+                            },
+                            {
+                                "code": "TA:AM_IN",
+                                "label": "Influence and Disinformation",
+                                "description": "Diffusione intenzionale di informazioni false o distorte con lo scopo di influenzare decisioni, azioni o opinioni."
+                            },
+                            {
+                                "code": "TA:AM_PR",
+                                "label": "Profit",
+                                "description": "Attività malevole finalizzate all’ottenimento di un profitto diretto o indiretto. Include ransomware, sextortion, phishing bancario, e infezioni con trojan bancari."
+                            },
+                            {
+                                "code": "TA:AM_OT",
+                                "label": "Other",
+                                "description": "Eventi relativi a motivazioni dell’attore malevolo non classificabili negli altri valori del predicato."
+                            }
+                        ]
+                    },
+                    {
+                        "code": "AD",
+                        "name": "Adversary Type",
+                        "description": "Identifica, se nota, la tipologia di attaccante o gruppo che ha perpetrato le azioni malevole o illecite.",
+                        "has_subpredicates": false,
+                        "subpredicates": [],
+                        "values": [
+                            {
+                                "code": "TA:AD_CR",
+                                "label": "Criminal",
+                                "description": "Identifica gli eventi cyber in cui l’attaccante o il gruppo che ha causato l’evento può essere categorizzato nella tipologia più generica di criminale, i cui scopi tendono a generare un profitto dalle azioni svolte."
+                            },
+                            {
+                                "code": "TA:AD_HA",
+                                "label": "Hacktivist",
+                                "description": "Identifica gli eventi cyber in cui è previsto l’uso sovversivo di strumenti digitali al fine di promuovere un’agenda politica o principi sociali. Include: attacchi a siti web per alterarne contenuti o interrompere servizi; pubblicazione di dati governativi classificati; reindirizzamento degli utenti verso siti gestiti dagli attivisti digitali."
+                            },
+                            {
+                                "code": "TA:AD_IN",
+                                "label": "Insider",
+                                "description": "Identifica gli eventi cyber in cui un attaccante utilizza le proprie autorizzazioni o conoscenze acquisite durante le attività lavorative per compiere un attacco dall’interno della rete. Obiettivi possibili: furto di informazioni sensibili, danneggiamento, sabotaggio o vendita dei dati trafugati."
+                            },
+                            {
+                                "code": "TA:AD_NA",
+                                "label": "Nation State",
+                                "description": "Identifica gli eventi cyber condotti da entità o gruppi statuali o sponsorizzati da uno Stato. Questi attori conducono operazioni cibernetiche avanzate per conto di un governo, spesso con risorse significative, personale altamente qualificato e accesso a strumenti e tecnologie avanzate."
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "code": "AC",
+                "name": "Additional Context",
+                "description": "Informazioni aggiuntive riguardanti gli strumenti utilizzati ed ulteriori dettagli sulle cause dell’evento.",
+                "predicates": [
+                    {
+                        "code": "AB",
+                        "name": "Abusive Content",
+                        "description": "Identifica la presenza di materiale offensivo, illegale o non voluto inviato a un utente, con finalità lesive della dignità o sensibilità della vittima.",
+                        "has_subpredicates": false,
+                        "subpredicates": [],
+                        "values": [
+                            {
+                                "code": "AC:AB_DI",
+                                "label": "Disturbing Content",
+                                "description": "Materiale o informazioni diffusi tramite sistemi informatici che possono essere offensivi, inappropriati, dannosi o provocare disagio psicologico o emotivo."
+                            },
+                            {
+                                "code": "AC:AB_HA",
+                                "label": "Harmful Speech",
+                                "description": "Comunicazioni digitali che possono causare danno, disagio o discriminazione, incluse molestie, diffamazione, bullismo, mobbing o contenuti discriminatori."
+                            },
+                            {
+                                "code": "AC:AB_OT",
+                                "label": "Other",
+                                "description": "Eventi cyber relativi ad Abusive Content non classificabili negli altri valori del predicato."
+                            }
+                        ]
+                    },
+                    {
+                        "code": "AS",
+                        "name": "Asset Source Geography",
+                        "description": "Identifica la localizzazione geografica dei beni informatici coinvolti in eventi cyber che sono stati identificati come sorgenti di attività malevole o illecite.",
+                        "has_subpredicates": false,
+                        "subpredicates": [],
+                        "values": [
+                            {
+                                "code": "AC:AS_IT",
+                                "label": "Italy",
+                                "description": "Indica che i beni informatici da cui sono state condotte attività malevole o illecite sono localizzati sul territorio nazionale italiano."
+                            },
+                            {
+                                "code": "AC:AS_OT",
+                                "label": "Other",
+                                "description": "Indica che i beni informatici da cui sono state condotte attività malevole o illecite sono localizzati al di fuori del territorio nazionale italiano."
+                            }
+                        ]
+                    },
+                    {
+                        "code": "IN",
+                        "name": "Involved Asset",
+                        "description": "",
+                        "has_subpredicates": true,
+                        "subpredicates": [
+                            {
+                                "code": "HW-ND",
+                                "name": "Hardware – Network Device",
+                                "description": "Componenti hardware che costituiscono l'infrastruttura di rete e permettono comunicazione e scambio dati tra dispositivi.",
+                                "values": [
+                                    {
+                                        "code": "AC:IN_HW-ND_RT",
+                                        "label": "Router",
+                                        "description": "Dispositivo che instrada il traffico tra due o più dispositivi o sottoreti."
+                                    },
+                                    {
+                                        "code": "AC:IN_HW-ND_SW",
+                                        "label": "Switch",
+                                        "description": "Dispositivo di rete che gestisce il flusso dei dati tramite porte di ingresso e uscita."
+                                    },
+                                    {
+                                        "code": "AC:IN_HW-ND_AP",
+                                        "label": "Access Point",
+                                        "description": "Dispositivo che permette ai client Wi-Fi di connettersi a una rete cablata."
+                                    },
+                                    {
+                                        "code": "AC:IN_HW-ND_OTH",
+                                        "label": "Other",
+                                        "description": "Risorse appartenenti al sotto-predicato Hardware – Network Device non classificabili negli altri valori."
+                                    }
+                                ]
+                            },
+                            {
+                                "code": "HW-IT",
+                                "name": "Hardware – IoT/IIoT",
+                                "description": "Identifica sensori, strumenti, macchine e altri dispositivi collegati in rete tra loro – anche in ambito industriale – che utilizzano la connettività Internet per comunicare, scambiare dati e monitorare processi.",
+                                "values": [
+                                    {
+                                        "code": "AC:IN_HW-IT_DC",
+                                        "label": "Digital Camera",
+                                        "description": "Dispositivo elettronico capace di catturare e trasmettere immagini e video."
+                                    },
+                                    {
+                                        "code": "AC:IN_HW-IT_OTH",
+                                        "label": "Other",
+                                        "description": "Asset afferenti al sotto-predicato Hardware – IoT/IIoT non identificabili negli altri valori definiti."
+                                    }
+                                ]
+                            },
+                            {
+                                "code": "HW-SA",
+                                "name": "Hardware – Security Appliance",
+                                "description": "Dispositivi hardware utilizzati per proteggere reti, dati e sistemi informatici da accessi non autorizzati, danni, interruzioni o altri rischi.",
+                                "values": [
+                                    {
+                                        "code": "AC:IN_HW-SA_FW",
+                                        "label": "Firewall",
+                                        "description": "Dispositivo o sistema di rete che monitora e controlla il traffico in entrata e uscita, impedendo comunicazioni non autorizzate tra reti e proteggendo le risorse di sistema."
+                                    },
+                                    {
+                                        "code": "AC:IN_HW-SA_HSM",
+                                        "label": "Hardware Security Module",
+                                        "description": "Dispositivo fisico progettato per proteggere e gestire chiavi digitali e operazioni crittografiche, resistente a manomissioni e intrusioni."
+                                    },
+                                    {
+                                        "code": "AC:IN_HW-SA_OTH",
+                                        "label": "Other",
+                                        "description": "Asset del sotto-predicato Hardware – Security Appliance non classificabili nei valori precedenti."
+                                    }
+                                ]
+                            },
+                            {
+                                "code": "HW-CS",
+                                "name": "Hardware – Computer System",
+                                "description": "Identifica un insieme di componenti hardware che permettono di elaborare e trasmettere i dati.",
+                                "values": [
+                                    {
+                                        "code": "AC:IN_HW-CS_SR",
+                                        "label": "Server",
+                                        "description": "Dispositivo fisico o sistema informatico che elabora e gestisce il traffico di informazioni su una rete, permettendo la fruizione dei dati agli altri dispositivi collegati."
+                                    },
+                                    {
+                                        "code": "AC:IN_HW-CS_PRT",
+                                        "label": "Printer",
+                                        "description": "Dispositivo che converte dati digitali in testo o immagini su supporto cartaceo."
+                                    },
+                                    {
+                                        "code": "AC:IN_HW-CS_WS",
+                                        "label": "Workstation",
+                                        "description": "Dispositivo informatico progettato per soddisfare esigenze di elaborazione avanzate di un singolo utente, usato in attività come programmazione, progettazione o ingegneria."
+                                    },
+                                    {
+                                        "code": "AC:IN_HW-CS_MD",
+                                        "label": "Mobile Device",
+                                        "description": "Dispositivi elettronici portatili pienamente funzionali alla mobilità dell'utente, come smartphone, tablet o e-book reader."
+                                    },
+                                    {
+                                        "code": "AC:IN_HW-CS_DS",
+                                        "label": "Data Storage",
+                                        "description": "Hardware che consente l’inserimento, la memorizzazione e il recupero dei dati."
+                                    },
+                                    {
+                                        "code": "AC:IN_HW-CS_OTH",
+                                        "label": "Other",
+                                        "description": "Include tutti gli asset relativi al sotto-predicato Hardware – Computer System non classificabili nelle altre categorie definite."
+                                    }
+                                ]
+                            },
+                            {
+                                "code": "HW-OT",
+                                "name": "Hardware – OT",
+                                "description": "Componenti hardware destinati al monitoraggio e al controllo di processi fisici e sistemi produttivi nel dominio Operational Technology.",
+                                "values": [
+                                    {
+                                        "code": "AC:IN_HW-OT_RTU",
+                                        "label": "Remote Terminal Unit",
+                                        "description": "Unità remota che riceve e decodifica messaggi dal sistema centrale di controllo e gestisce componenti elettromeccanici, con capacità di rete cablate o wireless."
+                                    },
+                                    {
+                                        "code": "AC:IN_HW-OT_HMI",
+                                        "label": "Human Machine Interface",
+                                        "description": "Interfaccia hardware che permette agli operatori di monitorare e controllare processi, configurare impostazioni e visualizzare stato e storico."
+                                    },
+                                    {
+                                        "code": "AC:IN_HW-OT_PLC",
+                                        "label": "Programmable Logic Controller",
+                                        "description": "Sistema elettronico digitale industriale con moduli I/O e memoria programmabile per logiche, sequenziamento, temporizzazione, conteggio e controllo di processi."
+                                    },
+                                    {
+                                        "code": "AC:IN_HW-OT_FID",
+                                        "label": "Field Device",
+                                        "description": "Dispositivi come sensori, attuatori, controller e convertitori di segnale utilizzati in ICS, DCS, BAS e PACS."
+                                    },
+                                    {
+                                        "code": "AC:IN_HW-OT_IED",
+                                        "label": "Intelligent Electronic Device",
+                                        "description": "Dispositivo con unità di elaborazione locale in grado di ricevere e inviare dati/controlli. Include misuratori multifunzione, relè digitali e controllori."
+                                    },
+                                    {
+                                        "code": "AC:IN_HW-OT_OTH",
+                                        "label": "Other",
+                                        "description": "Asset OT non classificabili tra i valori precedenti."
+                                    }
+                                ]
+                            },
+                            {
+                                "code": "HW-OH",
+                                "name": "Hardware – Other",
+                                "description": "Raccoglie gli elementi hardware non classificati nei sotto-predicati precedenti.",
+                                "values": [
+                                    {
+                                        "code": "AC:IN_HW-OH_ST",
+                                        "label": "Satellite System",
+                                        "description": "Sistema di comunicazione che riceve segnali dalla Terra e li ritrasmette tramite transponder. Esempio: GPS."
+                                    },
+                                    {
+                                        "code": "AC:IN_HW-OH_UAV",
+                                        "label": "Unmanned Aerial Vehicle",
+                                        "description": "Velivoli controllati a distanza senza pilota umano a bordo, utilizzati per ricognizione, sorveglianza o acquisizione obiettivi."
+                                    },
+                                    {
+                                        "code": "AC:IN_HW-OH_RFID",
+                                        "label": "RFID",
+                                        "description": "Tecnologia di riconoscimento automatizzato basata su dispositivi passivi che rispondono a reader attivi per lettura/validazione dati."
+                                    },
+                                    {
+                                        "code": "AC:IN_HW-OH_NFC",
+                                        "label": "NFC",
+                                        "description": "Tecnologia RF bidirezionale contactless a corto raggio (fino a 10 cm)."
+                                    },
+                                    {
+                                        "code": "AC:IN_HW-OH_OTH",
+                                        "label": "Other",
+                                        "description": "Asset hardware afferenti al sotto-predicato Hardware – Other non identificabili negli altri valori."
+                                    }
+                                ]
+                            },
+                            {
+                                "code": "HW-VI",
+                                "name": "Hardware – Virtualization Infrastructure",
+                                "description": "Identifica infrastrutture che consentono di astrarre le componenti hardware fisiche degli elaboratori per renderle disponibili come risorse virtuali.",
+                                "values": [
+                                    {
+                                        "code": "AC:IN_HW-VI_OTH",
+                                        "label": "Other",
+                                        "description": "Racchiude tutti gli asset afferenti al sotto-predicato Hardware – Virtualization Infrastructure non identificabili con altri valori definiti nel sottoinsieme."
+                                    }
+                                ]
+                            },
+                            {
+                                "code": "IN_SW-SS",
+                                "name": "Software – Security System",
+                                "description": "Sistemi software di protezione che filtrano, monitorano o bloccano il traffico e le attività su un sistema.",
+                                "values": [
+                                    {
+                                        "code": "AC:IN_SW-SS_FO",
+                                        "label": "Firewall OS",
+                                        "description": "Sistema di rete e/o applicativo che monitora il traffico in entrata e in uscita, impedendo comunicazioni non autorizzate e proteggendo le risorse di rete da minacce esterne."
+                                    },
+                                    {
+                                        "code": "AC:IN_SW-SS_AV",
+                                        "label": "Antivirus",
+                                        "description": "Programma che monitora un computer o una rete per identificare malware e prevenire o contenere incidenti correlati."
+                                    },
+                                    {
+                                        "code": "AC:IN_SW-SS_IDS",
+                                        "label": "Intrusion Detection System",
+                                        "description": "Sistema di sicurezza che monitora e analizza eventi di rete o di sistema per individuare e notificare tentativi di accesso non autorizzato."
+                                    },
+                                    {
+                                        "code": "AC:IN_SW-SS_IPS",
+                                        "label": "Intrusion Prevention System",
+                                        "description": "Sistema che rileva attività intrusiva e può tentare di bloccarla prima che raggiunga il proprio obiettivo."
+                                    },
+                                    {
+                                        "code": "AC:IN_SW-SS_AS",
+                                        "label": "Antispam",
+                                        "description": "Programmi o servizi che bloccano in modo preventivo email potenzialmente classificate come spam."
+                                    },
+                                    {
+                                        "code": "AC:IN_SW-SS_SIEM",
+                                        "label": "Security Information and Event Management",
+                                        "description": "Applicazione che raccoglie dati di sicurezza dai componenti del sistema informativo e li presenta come informazioni utilizzabili tramite una singola interfaccia."
+                                    },
+                                    {
+                                        "code": "AC:IN_SW-SS_PX",
+                                        "label": "Proxy",
+                                        "description": "Software che riceve richieste dai client e le inoltra alla destinazione finale, filtrando, modificando o registrando il traffico per incrementare sicurezza, privacy o prestazioni."
+                                    },
+                                    {
+                                        "code": "AC:IN_SW-SS_CA",
+                                        "label": "Certification Authority",
+                                        "description": "Entità fidata che emette e revoca certificati di chiave pubblica."
+                                    },
+                                    {
+                                        "code": "AC:IN_SW-SS_VP",
+                                        "label": "Virtual Private Network",
+                                        "description": "Rete virtuale che fornisce un meccanismo di comunicazione sicuro per dati IP trasmessi tra reti."
+                                    },
+                                    {
+                                        "code": "AC:IN_SW-SS_AM",
+                                        "label": "Access Management",
+                                        "description": "Processi e applicazioni che gestiscono autenticazione, autorizzazione e verifica degli accessi a sistemi e applicazioni IT."
+                                    },
+                                    {
+                                        "code": "AC:IN_SW-SS_WAF",
+                                        "label": "Web Application Firewall",
+                                        "description": "Dispositivo di sicurezza che monitora, filtra e blocca il traffico HTTP/HTTPS verso le applicazioni web, proteggendole da attacchi come SQLi e XSS."
+                                    },
+                                    {
+                                        "code": "AC:IN_SW-SS_OTH",
+                                        "label": "Other",
+                                        "description": "Asset software afferenti al sotto-predicato Software – Security System non classificabili negli altri valori."
+                                    }
+                                ]
+                            },
+                            {
+                                "code": "IN_SW-DM",
+                                "name": "Software – Data Management",
+                                "description": "Identifica software e componenti destinati alla raccolta, organizzazione e gestione dei dati.",
+                                "values": [
+                                    {
+                                        "code": "AC:IN_SW-DM_DB",
+                                        "label": "Database",
+                                        "description": "Archivio elettronico di informazioni o dati organizzati e accessibili."
+                                    },
+                                    {
+                                        "code": "AC:IN_SW-DM_BC",
+                                        "label": "Blockchain",
+                                        "description": "Tecnologia per la gestione di registri distribuiti e immutabili basati su crittografia."
+                                    },
+                                    {
+                                        "code": "AC:IN_SW-DM_DL",
+                                        "label": "Data Lake",
+                                        "description": "Repository centralizzato per dati strutturati, semi-strutturati e non strutturati nel formato nativo."
+                                    },
+                                    {
+                                        "code": "AC:IN_SW-DM_BK",
+                                        "label": "Backup",
+                                        "description": "Processo di creazione di copie di file e programmi per facilitarne il recupero."
+                                    },
+                                    {
+                                        "code": "AC:IN_SW-DM_DV",
+                                        "label": "Data Vault",
+                                        "description": "Modello di data warehousing progettato per integrazione scalabile di dati eterogenei."
+                                    },
+                                    {
+                                        "code": "AC:IN_SW-DM_OTH",
+                                        "label": "Other",
+                                        "description": "Asset non classificabili negli altri valori del sotto-predicato Software – Data Management."
+                                    }
+                                ]
+                            },
+                            {
+                                "code": "IN_SW-OT",
+                                "name": "Software – OT",
+                                "description": "Componenti software necessari al monitoraggio e controllo di processi fisici e sistemi produttivi nel dominio dell’Operational Technology.",
+                                "values": [
+                                    {
+                                        "code": "AC:IN_SW-OT_SCADA",
+                                        "label": "Supervisory Control And Data Acquisition",
+                                        "description": "Sistema computerizzato che raccoglie ed elabora dati a distanza, consentendo il controllo di processi e impianti complessi, anche su più siti."
+                                    },
+                                    {
+                                        "code": "AC:IN_SW-OT_MOM",
+                                        "label": "Manufacturing Operations Management",
+                                        "description": "Sistemi che gestiscono le operazioni di produzione."
+                                    },
+                                    {
+                                        "code": "AC:IN_SW-OT_DCS",
+                                        "label": "Distributed Control System",
+                                        "description": "Sistema di controllo industriale utilizzato in impianti produttivi localizzati nella stessa area geografica, come raffinerie, trattamento acque o produzione energetica."
+                                    },
+                                    {
+                                        "code": "AC:IN_SW-OT_BAS",
+                                        "label": "Building Automation System",
+                                        "description": "Sistema di automazione per il controllo degli edifici, che ottimizza l’uso e l’efficienza dei vari sottosistemi (HVAC, fumi, acqua calda/refrigerata, elettrico, ecc.)."
+                                    },
+                                    {
+                                        "code": "AC:IN_SW-OT_PACS",
+                                        "label": "Physical Access Control System",
+                                        "description": "Sistema elettronico di sicurezza fisica che controlla l'accesso a aree protette tramite autenticazione e/o autorizzazione."
+                                    },
+                                    {
+                                        "code": "AC:IN_SW-OT_CP",
+                                        "label": "Communication Protocol",
+                                        "description": "Insieme di regole che definiscono le modalità di comunicazione tra due o più entità in un contesto OT."
+                                    },
+                                    {
+                                        "code": "AC:IN_SW-OT_FEP",
+                                        "label": "Front End Processor",
+                                        "description": "Gateway che permette di interfacciare le HMI con i diversi sottosistemi distribuiti negli impianti."
+                                    },
+                                    {
+                                        "code": "AC:IN_SW-OT_HS",
+                                        "label": "Historian",
+                                        "description": "Database centralizzato progettato per raccogliere, memorizzare e supportare l’analisi dei dati con tecniche di controllo statistico dei processi."
+                                    },
+                                    {
+                                        "code": "AC:IN_SW-OT_MES",
+                                        "label": "Manufacturing Execution System",
+                                        "description": "Sistemi utilizzati per raccogliere dati in tempo reale al fine di ottimizzare i processi produttivi."
+                                    },
+                                    {
+                                        "code": "AC:IN_SW-OT_OTH",
+                                        "label": "Other",
+                                        "description": "Asset software del dominio OT non identificabili negli altri valori del sotto-predicato."
+                                    }
+                                ]
+                            },
+                            {
+                                "code": "IN_SW-OS",
+                                "name": "Software – Operating System",
+                                "description": "Identifica il software di base che gestisce risorse hardware e software del sistema.",
+                                "values": [
+                                    {
+                                        "code": "AC:IN_SW-OS_FW",
+                                        "label": "Firmware",
+                                        "description": "Microprogrammi in ROM che gestiscono funzioni base, avvio e periferiche."
+                                    },
+                                    {
+                                        "code": "AC:IN_SW-OS_WIN",
+                                        "label": "Windows",
+                                        "description": "Sistema operativo Microsoft per gestione hardware/software ed esecuzione applicazioni."
+                                    },
+                                    {
+                                        "code": "AC:IN_SW-OS_LX",
+                                        "label": "Linux",
+                                        "description": "Sistemi Unix-like open source basati su Linux Kernel."
+                                    },
+                                    {
+                                        "code": "AC:IN_SW-OS_MAC",
+                                        "label": "MacOS",
+                                        "description": "Sistema operativo proprietario Apple, basato su Unix."
+                                    },
+                                    {
+                                        "code": "AC:IN_SW-OS_IOS",
+                                        "label": "iOS",
+                                        "description": "Sistema operativo mobile Apple per dispositivi proprietari."
+                                    },
+                                    {
+                                        "code": "AC:IN_SW-OS_AND",
+                                        "label": "Android",
+                                        "description": "Sistema operativo mobile Google per dispositivi mobili."
+                                    },
+                                    {
+                                        "code": "AC:IN_SW-OS_OTH",
+                                        "label": "Other",
+                                        "description": "Altri sistemi operativi non classificati nei valori precedenti."
+                                    }
+                                ]
+                            },
+                            {
+                                "code": "SW-VS",
+                                "name": "Software – Virtualization Software",
+                                "description": "Identifica il software che consente ad una singola unità fisica di eseguire più macchine virtuali.",
+                                "values": [
+                                    {
+                                        "code": "AC:IN_SW-VS_HY",
+                                        "label": "Hypervisor",
+                                        "description": "Software, firmware o hardware che crea e gestisce macchine virtuali, consentendo a più sistemi operativi di funzionare contemporaneamente su un singolo host fisico."
+                                    },
+                                    {
+                                        "code": "AC:IN_SW-VS_OTH",
+                                        "label": "Other",
+                                        "description": "Racchiude tutti gli asset afferenti al sotto-predicato Software – Virtualization Software non identificabili con gli altri valori definiti nel sottoinsieme."
+                                    }
+                                ]
+                            },
+                            {
+                                "code": "IN_SW-IT",
+                                "name": "Software – IoT/IIoT",
+                                "description": "Componenti software per la gestione di sensori, strumenti, macchine e altri dispositivi IoT/IIoT utilizzati anche in ambito industriale.",
+                                "values": [
+                                    {
+                                        "code": "AC:IN_SW-IT_OTH",
+                                        "label": "Other",
+                                        "description": "Racchiude tutti gli asset afferenti al sotto-predicato Software – IoT/IIoT non identificabili con altri valori definiti nel sottoinsieme."
+                                    }
+                                ]
+                            },
+                            {
+                                "code": "IN_SW-AP",
+                                "name": "Software – Application",
+                                "description": "Software che esegue funzioni specifiche su dispositivi come computer, smartphone o tablet.",
+                                "values": [
+                                    {
+                                        "code": "AC:IN_SW-AP_WO",
+                                        "label": "Web HTTP HTTPS Server",
+                                        "description": "Dispositivo che fornisce servizi WWW, includendo hardware, OS, software web server e contenuti."
+                                    },
+                                    {
+                                        "code": "AC:IN_SW-AP_ML",
+                                        "label": "Mail Server Pop SMTP IMAP",
+                                        "description": "Host che gestisce funzioni di posta elettronica, memorizza e inoltra messaggi."
+                                    },
+                                    {
+                                        "code": "AC:IN_SW-AP_DNS",
+                                        "label": "Naming Server DNS",
+                                        "description": "Dispositivo che mantiene e traduce nomi di dominio in indirizzi IP."
+                                    },
+                                    {
+                                        "code": "AC:IN_SW-AP_FTP",
+                                        "label": "S FTP Server Application",
+                                        "description": "Standard per accesso rete, trasferimento file, autenticazione ed elenchi directory."
+                                    },
+                                    {
+                                        "code": "AC:IN_SW-AP_SSH",
+                                        "label": "Remote S Shell Server Application",
+                                        "description": "Programma che fornisce shell remota interattiva per esecuzione comandi."
+                                    },
+                                    {
+                                        "code": "AC:IN_SW-AP_NTP",
+                                        "label": "NTP Server Application",
+                                        "description": "Applicazione che fornisce sincronizzazione oraria tramite protocollo NTP."
+                                    },
+                                    {
+                                        "code": "AC:IN_SW-AP_IRC",
+                                        "label": "Chat IRC Server Application",
+                                        "description": "Programma server che gestisce comunicazioni testuali IRC tra client."
+                                    },
+                                    {
+                                        "code": "AC:IN_SW-AP_RPC",
+                                        "label": "RPC Server Application",
+                                        "description": "Programma che permette l’esecuzione di procedure su un server remoto."
+                                    },
+                                    {
+                                        "code": "AC:IN_SW-AP_LDAP",
+                                        "label": "LDAP Server Application",
+                                        "description": "Interfaccia server-to-server per scambio informazioni tra directory, basata su standard X.500."
+                                    },
+                                    {
+                                        "code": "AC:IN_SW-AP_RTSP",
+                                        "label": "RTSP Server Application",
+                                        "description": "Programma che gestisce streaming audio/video con controllo sessioni RTSP."
+                                    },
+                                    {
+                                        "code": "AC:IN_SW-AP_OTH",
+                                        "label": "Other",
+                                        "description": "Asset software – Application non classificabili nei valori precedenti."
+                                    }
+                                ]
+                            },
+                            {
+                                "code": "IN_SW-OH",
+                                "name": "Software – Other",
+                                "description": "Racchiude tutti gli elementi software che non sono stati classificati nei sotto-predicati precedenti.",
+                                "values": [
+                                    {
+                                        "code": "AC:IN_SW-OH_TL",
+                                        "label": "Third Party Library Framework",
+                                        "description": "Librerie o framework di riferimento appartenenti a fonti esterne."
+                                    },
+                                    {
+                                        "code": "AC:IN_SW-OH_AI",
+                                        "label": "AI Service",
+                                        "description": "Servizio capace di riprodurre o sostituire attività umane tramite decisioni complesse prese autonomamente da sistemi informatici. Applicabile in ambito IoT, Industria 4.0 e altre aree."
+                                    },
+                                    {
+                                        "code": "AC:IN_SW-OH_OTH",
+                                        "label": "Other",
+                                        "description": "Asset software non identificabili con gli altri valori definiti nel sottoinsieme Software – Other."
+                                    }
+                                ]
+                            },
+                            {
+                                "code": "IN_IT",
+                                "name": "Information Type",
+                                "description": "Identifica l’insieme di informazioni o dati che servono a uno specifico processo aziendale o attività dell'organizzazione.",
+                                "values": [
+                                    {
+                                        "code": "AC:IN_IT_CO",
+                                        "label": "Confidential Data",
+                                        "description": "Dati per cui è necessaria un'autorizzazione per potervi accedere, concessa a specifici dipendenti o fornitori."
+                                    },
+                                    {
+                                        "code": "AC:IN_IT_CL",
+                                        "label": "Classified Data",
+                                        "description": "Informazioni, atti o documenti cui è stata attribuita una delle classifiche di segretezza previste dalla legge."
+                                    },
+                                    {
+                                        "code": "AC:IN_IT_IU",
+                                        "label": "Internal Use Data",
+                                        "description": "Dati il cui accesso è limitato ai soli soggetti interni all'organizzazione."
+                                    },
+                                    {
+                                        "code": "AC:IN_IT_PD",
+                                        "label": "Public Data",
+                                        "description": "Dati disponibili pubblicamente a livello locale o su Internet, che non richiedono misure di sicurezza specifiche."
+                                    },
+                                    {
+                                        "code": "AC:IN_IT_JD",
+                                        "label": "Judicial Data",
+                                        "description": "Dati contenenti informazioni relative a elementi giudiziari o a provvedimenti in atto."
+                                    },
+                                    {
+                                        "code": "AC:IN_IT_OT",
+                                        "label": "Other",
+                                        "description": "Asset informativi non classificabili negli altri valori del sotto-predicato Information Type."
+                                    }
+                                ]
+                            },
+                            {
+                                "code": "IN_PE",
+                                "name": "People",
+                                "description": "Individui interni o esterni all’organizzazione da cui dipende una funzione essenziale, un servizio essenziale o un asset ICT.",
+                                "values": [
+                                    {
+                                        "code": "AC:IN_PE_EM",
+                                        "label": "Employee",
+                                        "description": "Persone che lavorano con vincolo di subordinazione per conto dell'organizzazione in forza di un contratto di lavoro."
+                                    },
+                                    {
+                                        "code": "AC:IN_PE_CO",
+                                        "label": "Contractor",
+                                        "description": "Organizzazione che fornisce competenze o servizi ad altre organizzazioni per un periodo determinato su base contrattuale."
+                                    },
+                                    {
+                                        "code": "AC:IN_PE_EX",
+                                        "label": "External Consultant",
+                                        "description": "Professionisti esterni che forniscono competenze o servizi ad individui o organizzazioni su base contrattuale e a tempo determinato."
+                                    },
+                                    {
+                                        "code": "AC:IN_PE_OT",
+                                        "label": "Other",
+                                        "description": "Elementi del sotto-predicato People non classificabili negli altri valori definiti."
+                                    }
+                                ]
+                            },
+                            {
+                                "code": "IN_LO",
+                                "name": "Location",
+                                "description": "Identifica i locali pertinenti all'operatività dell'organizzazione e le relative infrastrutture fisiche.",
+                                "values": [
+                                    {
+                                        "code": "AC:IN_LO_HQ",
+                                        "label": "Headquarter",
+                                        "description": "Struttura fisica destinata ad accogliere personale e/o attività operative dell'organizzazione."
+                                    },
+                                    {
+                                        "code": "AC:IN_LO_DC",
+                                        "label": "Data Center",
+                                        "description": "Strutture centralizzate che ospitano attrezzature IT e infrastrutture di rete."
+                                    },
+                                    {
+                                        "code": "AC:IN_LO_MI",
+                                        "label": "Management Infrastructure",
+                                        "description": "Mezzi di trasmissione, cabine, stazioni, edifici o altri elementi fisici coinvolti nel controllo, monitoraggio o supporto dei processi produttivi."
+                                    },
+                                    {
+                                        "code": "AC:IN_LO_OT",
+                                        "label": "Other",
+                                        "description": "Altri asset relativi a Location non identificabili con gli altri valori del sottoinsieme."
+                                    }
+                                ]
+                            },
+                            {
+                                "code": "IN_OT",
+                                "name": "Other",
+                                "description": "Raccoglie tutti gli elementi Involved Asset non classificati nei sotto-predicati precedenti.",
+                                "values": [
+                                    {
+                                        "code": "AC:IN_OT_PP",
+                                        "label": "Policy and Procedure",
+                                        "description": "Documentazione cartacea o digitale contenente i principi generali dell'organizzazione (policy) o le istruzioni operative limitate a un processo o area specifica (procedure)."
+                                    },
+                                    {
+                                        "code": "AC:IN_OT_DO",
+                                        "label": "Documentation",
+                                        "description": "Documenti rilevanti per l’organizzazione che supportano i processi aziendali, come manuali operativi."
+                                    },
+                                    {
+                                        "code": "AC:IN_OT_PA",
+                                        "label": "Privileged Account",
+                                        "description": "Utenza con privilegi elevati in un sistema informatico, in grado di modificare componenti critiche. Esempio: account amministratore locale o di dominio."
+                                    },
+                                    {
+                                        "code": "AC:IN_OT_UA",
+                                        "label": "Unprivileged Account",
+                                        "description": "Utente con permessi limitati di accesso e modifica a un sistema o rete. Esempio: compromissione iniziale tramite account utente."
+                                    },
+                                    {
+                                        "code": "AC:IN_OT_OT",
+                                        "label": "Other",
+                                        "description": "Altri asset appartenenti al sotto-predicato Other non classificabili negli altri valori definiti."
+                                    }
+                                ]
+                            }
+                        ],
+                        "values": []
+                    },
+                    {
+                        "code": "OU",
+                        "name": "Outlook",
+                        "description": "Fornisce una prospettiva sull’evoluzione dell’impatto di un evento cyber al momento del rilevamento.",
+                        "has_subpredicates": false,
+                        "subpredicates": [],
+                        "values": [
+                            {
+                                "code": "AC:OU_IM",
+                                "label": "Improving",
+                                "description": "Evento cyber in corso per il quale si prevede una riduzione dell’impatto nelle successive sei ore dal momento del rilevamento."
+                            },
+                            {
+                                "code": "AC:OU_ST",
+                                "label": "Stable",
+                                "description": "Evento cyber in corso per il quale si prevede che l’impatto rimanga invariato nelle successive sei ore dal momento del rilevamento."
+                            },
+                            {
+                                "code": "AC:OU_WO",
+                                "label": "Worsening",
+                                "description": "Evento cyber in corso per il quale si prevede un aggravamento dell’impatto nelle successive sei ore dal momento del rilevamento."
+                            }
+                        ]
+                    },
+                    {
+                        "code": "PH",
+                        "name": "Physical Security",
+                        "description": "Identifica eventi intenzionali di natura fisica con impatto su risorse e servizi informatici.",
+                        "has_subpredicates": false,
+                        "subpredicates": [],
+                        "values": [
+                            {
+                                "code": "AC:PH_SA",
+                                "label": "Sabotage",
+                                "description": "Azione intenzionale volta a danneggiare, distruggere o alterare il funzionamento di una risorsa informatica, causando perdita totale o parziale della disponibilità."
+                            },
+                            {
+                                "code": "AC:PH_TH",
+                                "label": "Theft and Burglary",
+                                "description": "Eventi conseguenti al furto di un bene informatico o di parti di esso."
+                            },
+                            {
+                                "code": "AC:PH_UN",
+                                "label": "Unauthorized Access",
+                                "description": "Eventi in cui una persona ottiene, senza autorizzazione, accesso fisico a un bene informatico."
+                            },
+                            {
+                                "code": "AC:PH_OT",
+                                "label": "Other",
+                                "description": "Eventi relativi a Physical Security non classificabili negli altri valori del predicato."
+                            }
+                        ]
+                    },
+                    {
+                        "code": "VE",
+                        "name": "Vector",
+                        "description": "Indica il vettore di attacco utilizzato in un evento cyber, ovvero la modalità con cui un attore ostile tenta di ottenere accesso o compromettere un bene informatico.",
+                        "has_subpredicates": false,
+                        "subpredicates": [],
+                        "values": [
+                            {
+                                "code": "AC:VE_AB",
+                                "label": "Abuse of Functionality",
+                                "description": "Sfruttamento intenzionale e non convenzionale delle funzionalità di un’applicazione o sito web per ottenere risultati indesiderati."
+                            },
+                            {
+                                "code": "AC:VE_CO",
+                                "label": "Compromised Domain",
+                                "description": "Uso di un dominio lecito compromesso per distribuire malware, reindirizzare verso risorse malevole o sottrarre dati."
+                            },
+                            {
+                                "code": "AC:VE_DR",
+                                "label": "Drive-by Compromise",
+                                "description": "Esposizione dell’utente ad attacchi tramite navigazione web, sfruttando vulnerabilità del dispositivo o codice malevolo."
+                            },
+                            {
+                                "code": "AC:VE_EM",
+                                "label": "E-mail",
+                                "description": "Utilizzo della posta elettronica come vettore d’attacco (PEC, PEL, PEO)."
+                            },
+                            {
+                                "code": "AC:VE_EV",
+                                "label": "Exploiting Vulnerabilities",
+                                "description": "Sfruttamento di vulnerabilità note o 0-day per ottenere accesso non autorizzato o controllo dei sistemi."
+                            },
+                            {
+                                "code": "AC:VE_EX",
+                                "label": "External Remote Services",
+                                "description": "Abuso di servizi remoti esposti per accedere o persistere all’interno di una rete, tramite configurazioni errate o credenziali valide."
+                            },
+                            {
+                                "code": "AC:VE_HA",
+                                "label": "Hardware Additions",
+                                "description": "Uso non autorizzato di dispositivi hardware per eseguire azioni malevole, come intercettazione o diffusione malware."
+                            },
+                            {
+                                "code": "AC:VE_SO",
+                                "label": "Social Media",
+                                "description": "Uso di piattaforme social come vettore d’attacco, inclusa la pubblicazione abusiva dopo accesso non autorizzato."
+                            },
+                            {
+                                "code": "AC:VE_SU",
+                                "label": "Supply Chain",
+                                "description": "Compromissione di prodotti o servizi di terze parti nella catena di approvvigiolabelnto per distribuire componenti malevoli."
+                            },
+                            {
+                                "code": "AC:VE_VA",
+                                "label": "Valid Accounts",
+                                "description": "Uso illecito di account validi per sfruttarne le autorizzazioni e compiere attività malevole."
+                            },
+                            {
+                                "code": "AC:VE_OT",
+                                "label": "Other",
+                                "description": "Eventi relativi al vettore Vector non classificabili nelle categorie precedenti."
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+    }
+}

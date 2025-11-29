@@ -1,0 +1,37 @@
+services:
+  backend:
+    build: ./backend
+    container_name: ice-backend
+    ports:
+      - "8000:8000"
+    environment:
+      - DATABASE_URL=postgresql://ice_user:ice_password@db:5432/ice_db
+      - CORS_ORIGINS=http://localhost:3000,http://localhost
+    depends_on:
+      - db
+    volumes:
+      - ./backend:/app
+    command: uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload
+
+  frontend:
+    build: ./frontend
+    container_name: ice-frontend
+    ports:
+      - "3000:80"
+    environment:
+      - REACT_APP_API_URL=http://backend:8000
+
+  db:
+    image: postgres:15-alpine
+    container_name: ice-db
+    environment:
+      - POSTGRES_USER=ice_user
+      - POSTGRES_PASSWORD=ice_password
+      - POSTGRES_DB=ice_db
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+volumes:
+  pgdata:
