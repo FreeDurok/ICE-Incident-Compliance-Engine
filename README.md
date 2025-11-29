@@ -21,7 +21,7 @@ Piattaforma modulare per la generazione guidata di report di incidente in confor
 
 ```bash
 # Clona il repository
-git clone <repository-url>
+git clone git@github.com:FreeDurok/ICE-Incident-Compliance-Engine.git
 cd ICE-Incident-Compliance-Engine
 
 # Oppure manualmente
