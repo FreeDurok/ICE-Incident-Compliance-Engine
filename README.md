@@ -24,6 +24,9 @@ Piattaforma modulare per la generazione guidata di report di incidente basati su
 git clone git@github.com:FreeDurok/ICE-Incident-Compliance-Engine.git
 cd ICE-Incident-Compliance-Engine
 
+# Script di installazione dipendenze e avvio
+./start.sh
+
 # Oppure manualmente
 docker-compose up -d
 ```
