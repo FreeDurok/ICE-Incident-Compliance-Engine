@@ -6,7 +6,7 @@ Piattaforma modulare per la generazione guidata di report di incidente in confor
 
 - ✅ **Wizard Guidato**: Costruisci incidenti step-by-step seguendo la tassonomia ACN
 - 📊 **Export Multipli**: Genera report PDF, JSON
-- 🏢 **100% Conforme ACN**: Basato sulla Tassonomia Cyber v2.0
+- 🏢 **Tassonomia ACN**: Basato sulla Tassonomia Cyber v2.0
 - 🐳 **Docker Ready**: Deployment completo con docker-compose
 - 🔗 **Integrazione MISP**: Export automatico in formato MISP Event
 

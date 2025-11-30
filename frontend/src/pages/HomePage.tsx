@@ -9,8 +9,7 @@ const HomePage: React.FC = () => {
           ICE - Incident Compliance Engine
         </h1>
         <p style={{ fontSize: '1.25rem', color: 'var(--text-secondary)', maxWidth: '700px', margin: '0 auto 2rem', lineHeight: 1.6 }}>
-          Piattaforma modulare per la generazione guidata di report di incidente
-          in conformità con la Tassonomia Cyber ACN (TC-ACN)
+          Piattaforma modulare per la generazione guidata di report basata sulla Tassonomia Cyber ACN (TC-ACN)
         </p>
         <div style={{ display: 'flex', gap: '1rem', justifyContent: 'center', flexWrap: 'wrap' }}>
           <Link to="/builder" className="btn btn-primary btn-lg">
@@ -41,9 +40,9 @@ const HomePage: React.FC = () => {
 
         <div className="card" style={{ textAlign: 'center', padding: '2rem' }}>
           <div style={{ fontSize: '3rem', marginBottom: '1rem' }}>🏢</div>
-          <h3 style={{ fontSize: '1.25rem', marginBottom: '0.75rem' }}>Conforme ACN</h3>
+          <h3 style={{ fontSize: '1.25rem', marginBottom: '0.75rem' }}>Tassonomia ACN</h3>
           <p style={{ color: 'var(--text-secondary)', lineHeight: 1.6 }}>
-            100% conforme alla Tassonomia Cyber TC-ACN v2.0
+            Basato sulla Tassonomia Cyber TC-ACN v2.0
           </p>
         </div>
       </div>
