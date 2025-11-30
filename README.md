@@ -8,7 +8,6 @@ Piattaforma modulare per la generazione guidata di report di incidente basati su
 - 📊 **Export Multipli**: Genera report PDF, JSON
 - 🏢 **Tassonomia ACN**: Basato sulla Tassonomia Cyber v2.0
 - 🐳 **Docker Ready**: Deployment completo con docker-compose
-- 🔗 **Integrazione MISP**: Export automatico in formato MISP Event
 
 ## 📋 Requisiti
 
