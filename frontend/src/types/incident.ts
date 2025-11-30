@@ -1,33 +1,25 @@
+/**
+ * Tipi TypeScript per gli incidenti
+ * Struttura v3.0: schema dinamico basato su taxonomy_codes
+ */
+
 export interface Incident {
   id: string;
   title: string;
   description?: string;
   discovered_at?: string;
 
-  // Baseline Characterization
-  impact: string[];
-  root_cause?: string;
-  severity?: string;
-  victim_geography: string[];
+  // SCHEMA DINAMICO - Indipendente dalla struttura della tassonomia
+  // Le chiavi sono nel formato "BC:IM", "TT:MA", "AC:IN:HW-CS" ecc.
+  // I valori sono array di codici completi (es. ["BC:IM_AC", "BC:IM_DA"])
+  taxonomy_codes: Record<string, string[]>;
 
-  // Threat Type
-  threat_types: string[];
+  // Dettagli/note per ogni codice specifico
+  code_details?: Record<string, string>;
 
-  // Threat Actor
-  adversary_motivation?: string;
-  adversary_type?: string;
-
-  // Additional Context
-  involved_assets: string[];
-  vectors: string[];
-  outlook?: string;
-  physical_security: string[];
-  abusive_content: string[];
-
-  // Metadata
+  // Metadati
   tags: string[];
   notes?: string;
-  block_details?: Record<string, string>;
 
   created_at: string;
   updated_at: string;
@@ -36,29 +28,28 @@ export interface Incident {
 export interface IncidentCreate {
   title: string;
   description?: string;
-  impact?: string[];
-  root_cause?: string;
-  severity?: string;
-  victim_geography?: string[];
-  threat_types?: string[];
-  adversary_motivation?: string;
-  adversary_type?: string;
-  involved_assets?: string[];
-  vectors?: string[];
-  outlook?: string;
-  physical_security?: string[];
-  abusive_content?: string[];
+  discovered_at?: string;
+
+  // Schema dinamico
+  taxonomy_codes?: Record<string, string[]>;
+  code_details?: Record<string, string>;
+
+  // Metadati
   tags?: string[];
   notes?: string;
-  block_details?: Record<string, string>;
-  discovered_at?: string;
 }
 
 export interface IncidentSummary {
   id: string;
   title: string;
-  severity?: string;
   created_at: string;
-  impact_count: number;
-  threat_types_count: number;
+
+  // Conteggi dinamici per macrocategoria
+  bc_count: number;
+  tt_count: number;
+  ta_count: number;
+  ac_count: number;
+
+  // Primo codice severity per display veloce
+  severity_code?: string;
 }

@@ -1,38 +1,36 @@
 import os
-from sqlalchemy import create_engine, text, inspect
-from sqlalchemy.orm import sessionmaker, declarative_base
+from motor.motor_asyncio import AsyncIOMotorClient
+from typing import Optional
+
+# MongoDB connection URL
+MONGODB_URL = os.getenv("MONGODB_URL", "mongodb://mongo:27017")
+DATABASE_NAME = os.getenv("DATABASE_NAME", "ice_db")
+
+# Global MongoDB client
+client: Optional[AsyncIOMotorClient] = None
 
 
-DATABASE_URL = os.getenv("DATABASE_URL", "sqlite:///./app.db")
-
-# For SQLite we need check_same_thread, but postgres doesn't
-connect_args = {"check_same_thread": False} if DATABASE_URL.startswith("sqlite") else {}
-
-engine = create_engine(DATABASE_URL, future=True, echo=False, connect_args=connect_args)
-SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine, expire_on_commit=False, future=True)
-
-Base = declarative_base()
+def get_database():
+    """Get MongoDB database instance"""
+    return client[DATABASE_NAME]
 
 
-def get_db():
-    db = SessionLocal()
-    try:
-        yield db
-    finally:
-        db.close()
+async def connect_to_mongo():
+    """Connect to MongoDB on startup"""
+    global client
+    client = AsyncIOMotorClient(MONGODB_URL)
+    print(f"Connected to MongoDB at {MONGODB_URL}")
 
 
-def ensure_schema():
-    """
-    Best-effort piccolo aggiornamento schema senza migrazioni:
-    aggiunge discovered_at se manca (postgres).
-    """
-    inspector = inspect(engine)
-    tables = inspector.get_table_names()
-    if "incidents" not in tables:
-        return
+async def close_mongo_connection():
+    """Close MongoDB connection on shutdown"""
+    global client
+    if client:
+        client.close()
+        print("Closed MongoDB connection")
 
-    columns = [col["name"] for col in inspector.get_columns("incidents")]
-    if "discovered_at" not in columns:
-        with engine.begin() as conn:
-            conn.execute(text("ALTER TABLE incidents ADD COLUMN discovered_at TIMESTAMP NULL"))
+
+def get_collection(collection_name: str):
+    """Get a specific collection"""
+    db = get_database()
+    return db[collection_name]

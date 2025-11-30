@@ -5,10 +5,12 @@ services:
     ports:
       - "8000:8000"
     environment:
-      - DATABASE_URL=postgresql://ice_user:ice_password@db:5432/ice_db
+      - MONGODB_URL=mongodb://mongo:27017
+      - DATABASE_NAME=ice_db
       - CORS_ORIGINS=http://localhost:3000,http://localhost
     depends_on:
-      - db
+      mongo:
+        condition: service_healthy
     volumes:
       - ./backend:/app
     command: uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload
@@ -21,17 +23,18 @@ services:
     environment:
       - REACT_APP_API_URL=http://backend:8000
 
-  db:
-    image: postgres:15-alpine
-    container_name: ice-db
-    environment:
-      - POSTGRES_USER=ice_user
-      - POSTGRES_PASSWORD=ice_password
-      - POSTGRES_DB=ice_db
+  mongo:
+    image: mongo:7-jammy
+    container_name: ice-mongo
     ports:
-      - "5432:5432"
+      - "27017:27017"
     volumes:
-      - pgdata:/var/lib/postgresql/data
+      - mongodata:/data/db
+    healthcheck:
+      test: ["CMD", "mongosh", "--eval", "db.adminCommand('ping')"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
 
 volumes:
-  pgdata:
+  mongodata:

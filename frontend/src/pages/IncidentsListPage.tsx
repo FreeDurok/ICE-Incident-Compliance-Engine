@@ -40,8 +40,8 @@ const IncidentsListPage: React.FC = () => {
     }
   };
 
-  const getSeverityBadge = (severity?: string) => {
-    if (!severity) return null;
+  const getSeverityBadge = (severityCode?: string) => {
+    if (!severityCode) return null;
 
     const severityMap: { [key: string]: { label: string; class: string } } = {
       'BC:SE_HI': { label: 'High', class: 'badge-danger' },
@@ -50,7 +50,7 @@ const IncidentsListPage: React.FC = () => {
       'BC:SE_NO': { label: 'None', class: 'badge-success' },
     };
 
-    const info = severityMap[severity];
+    const info = severityMap[severityCode];
     if (!info) return null;
 
     return <span className={`badge ${info.class}`}>{info.label}</span>;
@@ -122,7 +122,7 @@ const IncidentsListPage: React.FC = () => {
             >
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '1rem', gap: '1rem' }}>
                 <h3 style={{ fontSize: '1.25rem', margin: 0, flex: 1 }}>{incident.title}</h3>
-                {getSeverityBadge(incident.severity)}
+                {getSeverityBadge(incident.severity_code)}
               </div>
 
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '1rem' }}>
@@ -132,13 +132,27 @@ const IncidentsListPage: React.FC = () => {
                   </div>
                   <div style={{ fontSize: '0.875rem' }}>{formatDate(incident.created_at)}</div>
                 </div>
-                <div style={{ display: 'flex', gap: '0.5rem' }}>
-                  <span style={{ fontSize: '0.75rem', padding: '0.25rem 0.5rem', backgroundColor: 'var(--bg-secondary)', color: 'var(--text-secondary)', borderRadius: 'var(--radius-sm)' }}>
-                    {incident.impact_count} Impact
-                  </span>
-                  <span style={{ fontSize: '0.75rem', padding: '0.25rem 0.5rem', backgroundColor: 'var(--bg-secondary)', color: 'var(--text-secondary)', borderRadius: 'var(--radius-sm)' }}>
-                    {incident.threat_types_count} Threat Types
-                  </span>
+                <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap' }}>
+                  {incident.bc_count > 0 && (
+                    <span style={{ fontSize: '0.75rem', padding: '0.25rem 0.5rem', backgroundColor: 'rgba(37, 99, 235, 0.12)', color: '#2563eb', borderRadius: 'var(--radius-sm)', border: '1px solid rgba(37, 99, 235, 0.35)' }}>
+                      BC: {incident.bc_count}
+                    </span>
+                  )}
+                  {incident.tt_count > 0 && (
+                    <span style={{ fontSize: '0.75rem', padding: '0.25rem 0.5rem', backgroundColor: 'rgba(245, 158, 11, 0.12)', color: '#d97706', borderRadius: 'var(--radius-sm)', border: '1px solid rgba(245, 158, 11, 0.35)' }}>
+                      TT: {incident.tt_count}
+                    </span>
+                  )}
+                  {incident.ta_count > 0 && (
+                    <span style={{ fontSize: '0.75rem', padding: '0.25rem 0.5rem', backgroundColor: 'rgba(239, 68, 68, 0.12)', color: '#dc2626', borderRadius: 'var(--radius-sm)', border: '1px solid rgba(239, 68, 68, 0.35)' }}>
+                      TA: {incident.ta_count}
+                    </span>
+                  )}
+                  {incident.ac_count > 0 && (
+                    <span style={{ fontSize: '0.75rem', padding: '0.25rem 0.5rem', backgroundColor: 'rgba(16, 185, 129, 0.12)', color: '#0f9a76', borderRadius: 'var(--radius-sm)', border: '1px solid rgba(16, 185, 129, 0.35)' }}>
+                      AC: {incident.ac_count}
+                    </span>
+                  )}
                 </div>
               </div>
             </Link>

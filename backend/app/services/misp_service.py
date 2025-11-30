@@ -3,44 +3,23 @@ from datetime import datetime
 
 
 def create_misp_event(incident: Dict[str, Any], taxonomy_service) -> Dict[str, Any]:
-    """Crea un evento MISP dall'incidente"""
+    """Crea un evento MISP dall'incidente usando schema dinamico taxonomy_codes"""
 
-    # Raccogli tutti i tag dalla tassonomia ACN
+    # Raccogli tutti i tag dalla tassonomia ACN usando lo schema dinamico
     tags = []
+    taxonomy_codes = incident.get("taxonomy_codes", {})
 
-    # Impact tags
-    for impact_code in incident.get("impact", []):
-        tags.append(f"acn:{_code_to_misp_tag(impact_code)}")
+    # Itera su tutte le chiavi e codici dinamicamente
+    for taxonomy_key, codes_list in taxonomy_codes.items():
+        for code in codes_list:
+            tags.append(f"acn:{_code_to_misp_tag(code)}")
 
-    # Root cause
-    if incident.get("root_cause"):
-        tags.append(f"acn:{_code_to_misp_tag(incident['root_cause'])}")
-
-    # Severity
-    if incident.get("severity"):
-        tags.append(f"acn:{_code_to_misp_tag(incident['severity'])}")
-
-    # Geography
-    for geo_code in incident.get("victim_geography", []):
-        tags.append(f"acn:{_code_to_misp_tag(geo_code)}")
-
-    # Threat types
-    for tt_code in incident.get("threat_types", []):
-        tags.append(f"acn:{_code_to_misp_tag(tt_code)}")
-
-    # Adversary
-    if incident.get("adversary_motivation"):
-        tags.append(f"acn:{_code_to_misp_tag(incident['adversary_motivation'])}")
-
-    if incident.get("adversary_type"):
-        tags.append(f"acn:{_code_to_misp_tag(incident['adversary_type'])}")
-
-    # Vectors
-    for vec_code in incident.get("vectors", []):
-        tags.append(f"acn:{_code_to_misp_tag(vec_code)}")
-
-    # Determina threat level da severity
-    threat_level_id = _severity_to_threat_level(incident.get("severity"))
+    # Determina threat level da severity (primo codice BC:SE se presente)
+    severity_code = None
+    bc_se_codes = taxonomy_codes.get("BC:SE", [])
+    if bc_se_codes:
+        severity_code = bc_se_codes[0]
+    threat_level_id = _severity_to_threat_level(severity_code)
 
     # Crea evento MISP
     misp_event = {

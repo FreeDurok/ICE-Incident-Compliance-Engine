@@ -56,15 +56,28 @@ def _group_codes_by_predicate(codes: list, macro_code: str, taxonomy_service):
     return grouped
 
 
-def _collect_codes(incident: Dict[str, Any], fields: list) -> list:
-    """Raccoglie valori da incident per i campi indicati, normalizzando a lista di codici."""
+def _collect_codes_for_macro(incident: Dict[str, Any], macro_code: str) -> list:
+    """
+    Raccoglie tutti i codici di una macrocategoria dal taxonomy_codes dinamico.
+
+    Args:
+        incident: Dizionario incidente
+        macro_code: Codice macrocategoria (es. "BC", "TT", "TA", "AC")
+
+    Returns:
+        Lista di codici appartenenti alla macrocategoria
+    """
     codes: list = []
-    for field in fields:
-        val = incident.get(field)
-        if isinstance(val, list):
-            codes.extend([v for v in val if v])
-        elif val:
-            codes.append(val)
+    taxonomy_codes = incident.get("taxonomy_codes", {})
+
+    # Itera su tutte le chiavi e filtra per macrocategoria
+    for key, codes_list in taxonomy_codes.items():
+        # Estrae la macrocategoria dalla chiave (es. "BC:IM" -> "BC")
+        if ":" in key:
+            key_macro = key.split(":")[0]
+            if key_macro == macro_code:
+                codes.extend(codes_list)
+
     return codes
 
 
@@ -114,7 +127,7 @@ def generate_pdf_report(incident: Dict[str, Any], taxonomy_service) -> bytes:
 
     # Lookup blocchi
     block_lookup = _build_block_lookup(taxonomy_service)
-    block_details: Dict[str, str] = incident.get("block_details", {}) or {}
+    code_details: Dict[str, str] = incident.get("code_details", {}) or {}
 
     def add_block_table(title: str, codes: list):
         """Aggiunge una tabella con codice, etichetta, descrizione e note utente."""
@@ -140,7 +153,7 @@ def generate_pdf_report(incident: Dict[str, Any], taxonomy_service) -> bytes:
                 Paragraph(code, code_style),
                 Paragraph(info.get("label", "") or "", cell_style),
                 Paragraph(info.get("description", "") or "", cell_style),
-                Paragraph(block_details.get(code, "") or "", cell_style),
+                Paragraph(code_details.get(code, "") or "", cell_style),
             ])
         table = Table(
             data,
@@ -189,27 +202,28 @@ def generate_pdf_report(incident: Dict[str, Any], taxonomy_service) -> bytes:
         story.append(Spacer(1, 0.5*cm))
 
     # Baseline Characterization (gruppato per predicato)
-    bc_codes = _collect_codes(incident, ['impact', 'root_cause', 'severity', 'victim_geography'])
+    bc_codes = _collect_codes_for_macro(incident, "BC")
     if bc_codes:
         grouped = _group_codes_by_predicate(bc_codes, "BC", taxonomy_service)
         for (_code, pred_name), codes in grouped.items():
             add_block_table(f"Baseline Characterization - {pred_name}", codes)
 
-    # Threat Type (già raggruppato per predicato)
-    if incident.get('threat_types'):
-        grouped = _group_codes_by_predicate(incident.get('threat_types', []), "TT", taxonomy_service)
+    # Threat Type (tutti i predicati TT)
+    tt_codes = _collect_codes_for_macro(incident, "TT")
+    if tt_codes:
+        grouped = _group_codes_by_predicate(tt_codes, "TT", taxonomy_service)
         for (_code, pred_name), codes in grouped.items():
             add_block_table(f"Threat Type - {pred_name}", codes)
 
     # Threat Actor (raggruppato per predicato)
-    ta_codes = _collect_codes(incident, ['adversary_motivation', 'adversary_type'])
+    ta_codes = _collect_codes_for_macro(incident, "TA")
     if ta_codes:
         grouped = _group_codes_by_predicate(ta_codes, "TA", taxonomy_service)
         for (_code, pred_name), codes in grouped.items():
             add_block_table(f"Threat Actor - {pred_name}", codes)
 
     # Additional Context (raggruppato per predicato)
-    ac_codes = _collect_codes(incident, ['involved_assets', 'vectors', 'outlook', 'physical_security', 'abusive_content'])
+    ac_codes = _collect_codes_for_macro(incident, "AC")
     if ac_codes:
         grouped = _group_codes_by_predicate(ac_codes, "AC", taxonomy_service)
         for (_code, pred_name), codes in grouped.items():

@@ -1,47 +1,36 @@
-from fastapi import APIRouter, HTTPException, Response, Depends
+from fastapi import APIRouter, HTTPException, Response
 from fastapi.responses import JSONResponse
 from fastapi.encoders import jsonable_encoder
-from sqlalchemy.orm import Session
 from app.services.taxonomy_service import taxonomy_service
 from app.services.report_service import generate_pdf_report
 from app.services.misp_service import create_misp_event
-from app.db import get_db
-from app.models.incident_db import IncidentORM
+from app.db import get_collection
 from app.models.incident import Incident
+from app.utils.taxonomy_helpers import extract_all_codes_from_taxonomy_dict
 
 router = APIRouter()
 
+COLLECTION_NAME = "incidents"
 
-def _get_incident(db: Session, incident_id: str) -> Incident:
-    orm_incident = db.get(IncidentORM, incident_id)
-    if not orm_incident:
+
+def _doc_to_incident(doc: dict) -> Incident:
+    """Converte un documento MongoDB in modello Incident"""
+    if "_id" in doc:
+        doc["id"] = doc.pop("_id")
+    return Incident(**doc)
+
+
+async def _get_incident(incident_id: str) -> Incident:
+    """Helper per ottenere un incidente"""
+    collection = get_collection(COLLECTION_NAME)
+    incident = await collection.find_one({"_id": incident_id})
+    if not incident:
         raise HTTPException(status_code=404, detail="Incidente non trovato")
-
-    return Incident(
-        id=orm_incident.id,
-        title=orm_incident.title,
-        description=orm_incident.description,
-        impact=orm_incident.impact or [],
-        root_cause=orm_incident.root_cause,
-        severity=orm_incident.severity,
-        victim_geography=orm_incident.victim_geography or [],
-        threat_types=orm_incident.threat_types or [],
-        adversary_motivation=orm_incident.adversary_motivation,
-        adversary_type=orm_incident.adversary_type,
-        involved_assets=orm_incident.involved_assets or [],
-        vectors=orm_incident.vectors or [],
-        outlook=orm_incident.outlook,
-        physical_security=orm_incident.physical_security or [],
-        abusive_content=orm_incident.abusive_content or [],
-        tags=orm_incident.tags or [],
-        notes=orm_incident.notes,
-        block_details=orm_incident.block_details or {},
-        created_at=orm_incident.created_at,
-        updated_at=orm_incident.updated_at,
-    )
+    return _doc_to_incident(incident)
 
 
 def _build_block_lookup():
+    """Crea lookup table per i codici tassonomia"""
     taxonomy = taxonomy_service.get_taxonomy()
     lookup = {}
     for mc in taxonomy.get("taxonomy", {}).get("macrocategories", []):
@@ -79,38 +68,29 @@ def _build_block_lookup():
 
 
 def _collect_incident_codes(incident: Incident):
-    """Raccoglie tutti i codici presenti nell'incidente insieme al campo di origine."""
-    mapping = {
-        "impact": incident.impact or [],
-        "victim_geography": incident.victim_geography or [],
-        "threat_types": incident.threat_types or [],
-        "involved_assets": incident.involved_assets or [],
-        "vectors": incident.vectors or [],
-        "physical_security": incident.physical_security or [],
-        "abusive_content": incident.abusive_content or [],
-    }
-    if incident.root_cause:
-        mapping["root_cause"] = [incident.root_cause]
-    if incident.severity:
-        mapping["severity"] = [incident.severity]
-    if incident.adversary_motivation:
-        mapping["adversary_motivation"] = [incident.adversary_motivation]
-    if incident.adversary_type:
-        mapping["adversary_type"] = [incident.adversary_type]
-    if incident.outlook:
-        mapping["outlook"] = [incident.outlook]
+    """
+    Raccoglie tutti i codici presenti nell'incidente insieme alla chiave tassonomia.
 
+    Usa lo schema dinamico taxonomy_codes per iterare su tutte le chiavi/codici
+    senza hardcoding dei predicati.
+    """
     collected = []
-    for field, codes in mapping.items():
-        for code in codes:
-            collected.append({"field": field, "code": code})
+
+    # Itera su tutte le chiavi tassonomia (es. "BC:IM", "TT:MA", "AC:IN:HW-CS")
+    for taxonomy_key, codes_list in incident.taxonomy_codes.items():
+        for code in codes_list:
+            collected.append({
+                "taxonomy_key": taxonomy_key,
+                "code": code
+            })
+
     return collected
 
 
 @router.get("/{incident_id}/json")
-async def export_incident_json(incident_id: str, db: Session = Depends(get_db)):
+async def export_incident_json(incident_id: str):
     """Esporta incidente in formato JSON"""
-    incident = _get_incident(db, incident_id)
+    incident = await _get_incident(incident_id)
 
     # Arricchisci con informazioni della tassonomia
     enriched = {
@@ -126,7 +106,7 @@ async def export_incident_json(incident_id: str, db: Session = Depends(get_db)):
         info = lookup.get(item["code"], {})
         blocks.append({
             "code": item["code"],
-            "field": item["field"],
+            "taxonomy_key": item["taxonomy_key"],
             "label": info.get("label"),
             "description": info.get("description"),
             "macro": info.get("macro"),
@@ -135,7 +115,7 @@ async def export_incident_json(incident_id: str, db: Session = Depends(get_db)):
             "predicate_name": info.get("predicate_name"),
             "subpredicate": info.get("subpredicate"),
             "subpredicate_name": info.get("subpredicate_name"),
-            "detail": (incident.block_details or {}).get(item["code"]),
+            "detail": (incident.code_details or {}).get(item["code"]),
         })
     enriched["blocks"] = blocks
 
@@ -146,9 +126,9 @@ async def export_incident_json(incident_id: str, db: Session = Depends(get_db)):
 
 
 @router.get("/{incident_id}/pdf")
-async def export_incident_pdf(incident_id: str, db: Session = Depends(get_db)):
+async def export_incident_pdf(incident_id: str):
     """Esporta incidente in formato PDF"""
-    incident = _get_incident(db, incident_id)
+    incident = await _get_incident(incident_id)
 
     # Genera PDF
     pdf_bytes = generate_pdf_report(incident.model_dump(), taxonomy_service)
@@ -163,20 +143,20 @@ async def export_incident_pdf(incident_id: str, db: Session = Depends(get_db)):
 
 
 @router.get("/{incident_id}/misp")
-async def export_incident_misp(incident_id: str, db: Session = Depends(get_db)):
+async def export_incident_misp(incident_id: str):
     """Esporta incidente in formato MISP Event"""
-    incident = _get_incident(db, incident_id).model_dump()
+    incident = await _get_incident(incident_id)
 
     # Crea evento MISP
-    misp_event = create_misp_event(incident, taxonomy_service)
+    misp_event = create_misp_event(incident.model_dump(), taxonomy_service)
 
     return JSONResponse(content=misp_event)
 
 
 @router.post("/{incident_id}/misp/push")
-async def push_to_misp(incident_id: str, db: Session = Depends(get_db)):
+async def push_to_misp(incident_id: str):
     """Push dell'incidente su istanza MISP (richiede configurazione)"""
-    _get_incident(db, incident_id)
+    await _get_incident(incident_id)
 
     # TODO: Implementare push verso MISP reale
     return {

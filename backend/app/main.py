@@ -3,15 +3,28 @@ from pathlib import Path
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from dotenv import load_dotenv
+from contextlib import asynccontextmanager
 from app.api import incidents, taxonomy, export
-from app.db import Base, engine, ensure_schema
+from app.db import connect_to_mongo, close_mongo_connection
 
 load_dotenv(dotenv_path=Path(".env"))
+
+
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    """Gestisce startup e shutdown dell'applicazione"""
+    # Startup
+    await connect_to_mongo()
+    yield
+    # Shutdown
+    await close_mongo_connection()
+
 
 app = FastAPI(
     title="ICE - Incident Compliance Engine",
     description="Piattaforma per la generazione guidata di report di incidente in conformità con la Tassonomia Cyber ACN",
-    version="1.0.0"
+    version="2.0.0",
+    lifespan=lifespan
 )
 
 # CORS (configurabile via env, fallback su localhost)
@@ -33,23 +46,22 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# Create tables (for dev/demo; in production prefer migrations)
-Base.metadata.create_all(bind=engine)
-ensure_schema()
-
 # Routes
 app.include_router(incidents.router, prefix="/api/incidents", tags=["incidents"])
 app.include_router(taxonomy.router, prefix="/api/taxonomy", tags=["taxonomy"])
 app.include_router(export.router, prefix="/api/export", tags=["export"])
 
+
 @app.get("/")
 async def root():
     return {
         "message": "ICE - Incident Compliance Engine API",
-        "version": "1.0.0",
+        "version": "2.0.0",
+        "database": "MongoDB",
         "docs": "/docs"
     }
 
+
 @app.get("/health")
 async def health_check():
-    return {"status": "healthy"}
+    return {"status": "healthy", "database": "MongoDB"}

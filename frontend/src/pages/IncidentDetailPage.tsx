@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
 import { incidentsAPI, exportAPI, taxonomyAPI } from '../services/api';
 import { Incident } from '../types/incident';
+import { getCategoryFromKey, parseTaxonomyKey } from '../utils/taxonomyHelpers';
 
 const IncidentDetailPage: React.FC = () => {
   const { id } = useParams<{ id: string }>();
@@ -156,6 +157,44 @@ const IncidentDetailPage: React.FC = () => {
     );
   };
 
+  const renderTaxonomySections = () => {
+    if (!incident || !incident.taxonomy_codes) return null;
+
+    // Raggruppa i codici per macrocategoria
+    const taxonomyByMacro: Record<string, string[]> = {};
+
+    Object.entries(incident.taxonomy_codes || {}).forEach(([taxonomyKey, codes]) => {
+      const macro = getCategoryFromKey(taxonomyKey);
+      if (!taxonomyByMacro[macro]) {
+        taxonomyByMacro[macro] = [];
+      }
+      taxonomyByMacro[macro].push(...codes);
+    });
+
+    const macroTitles: Record<string, string> = {
+      BC: 'Baseline Characterization',
+      TT: 'Threat Type',
+      TA: 'Threat Actor',
+      AC: 'Additional Context',
+    };
+
+    return (
+      <>
+        {Object.entries(taxonomyByMacro).map(([macro, codes]) => {
+          if (codes.length === 0) return null;
+          const colors = categoryColors[macro];
+          if (!colors) return null;
+
+          return (
+            <Section key={macro} title={macroTitles[macro] || macro} color={colors.text}>
+              {renderGrouped(codes, colors.text)}
+            </Section>
+          );
+        })}
+      </>
+    );
+  };
+
   if (loading) {
     return <div className="loading">Caricamento...</div>;
   }
@@ -224,50 +263,8 @@ const IncidentDetailPage: React.FC = () => {
           )}
         </Section>
 
-        {(incident.impact?.length > 0 || incident.root_cause || incident.severity || incident.victim_geography?.length > 0) && (
-          <Section title="Baseline Characterization" color={categoryColors.BC.text}>
-            {renderGrouped(
-              [
-                ...(incident.impact || []),
-                ...(incident.root_cause ? [incident.root_cause] : []),
-                ...(incident.severity ? [incident.severity] : []),
-                ...(incident.victim_geography || []),
-              ],
-              categoryColors.BC.text
-            )}
-          </Section>
-        )}
-
-        {incident.threat_types && incident.threat_types.length > 0 && (
-          <Section title="Threat Type" color={categoryColors.TT.text}>
-            {renderGrouped(incident.threat_types, categoryColors.TT.text)}
-          </Section>
-        )}
-
-        {(incident.adversary_motivation || incident.adversary_type) && (
-          <Section title="Threat Actor" color={categoryColors.TA.text}>
-            {renderGrouped(
-              [
-                ...(incident.adversary_motivation ? [incident.adversary_motivation] : []),
-                ...(incident.adversary_type ? [incident.adversary_type] : []),
-              ],
-              categoryColors.TA.text
-            )}
-          </Section>
-        )}
-
-        {(incident.involved_assets?.length > 0 || incident.vectors?.length > 0 || incident.outlook) && (
-          <Section title="Additional Context" color={categoryColors.AC.text}>
-            {renderGrouped(
-              [
-                ...(incident.involved_assets || []),
-                ...(incident.vectors || []),
-                ...(incident.outlook ? [incident.outlook] : []),
-              ],
-              categoryColors.AC.text
-            )}
-          </Section>
-        )}
+        {/* Rendering dinamico delle sezioni tassonomia */}
+        {renderTaxonomySections()}
 
         {incident.notes && (
           <Section title="Note">

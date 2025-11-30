@@ -3,7 +3,7 @@
         "name": "TC-ACN",
         "version": "2.0",
         "source": {
-            "name": "ACN Tassonomia Cyber CLEAR",
+            "name": "ACN Tassonomia Cyber",
             "url": "https://www.acn.gov.it/portale/documents/20119/552690/ACN_Tassonomia_Cyber_CLEAR.pdf/9595cc35-1c0b-4007-07b2-8f0468e5b82e"
         },
         "macrocategories": [
@@ -892,7 +892,7 @@
                                 ]
                             },
                             {
-                                "code": "IN_SW-SS",
+                                "code": "SW-SS",
                                 "name": "Software – Security System",
                                 "description": "Sistemi software di protezione che filtrano, monitorano o bloccano il traffico e le attività su un sistema.",
                                 "values": [
@@ -959,7 +959,7 @@
                                 ]
                             },
                             {
-                                "code": "IN_SW-DM",
+                                "code": "SW-DM",
                                 "name": "Software – Data Management",
                                 "description": "Identifica software e componenti destinati alla raccolta, organizzazione e gestione dei dati.",
                                 "values": [
@@ -996,7 +996,7 @@
                                 ]
                             },
                             {
-                                "code": "IN_SW-OT",
+                                "code": "SW-OT",
                                 "name": "Software – OT",
                                 "description": "Componenti software necessari al monitoraggio e controllo di processi fisici e sistemi produttivi nel dominio dell’Operational Technology.",
                                 "values": [
@@ -1053,7 +1053,7 @@
                                 ]
                             },
                             {
-                                "code": "IN_SW-OS",
+                                "code": "SW-OS",
                                 "name": "Software – Operating System",
                                 "description": "Identifica il software di base che gestisce risorse hardware e software del sistema.",
                                 "values": [
@@ -1112,7 +1112,7 @@
                                 ]
                             },
                             {
-                                "code": "IN_SW-IT",
+                                "code": "SW-IT",
                                 "name": "Software – IoT/IIoT",
                                 "description": "Componenti software per la gestione di sensori, strumenti, macchine e altri dispositivi IoT/IIoT utilizzati anche in ambito industriale.",
                                 "values": [
@@ -1124,7 +1124,7 @@
                                 ]
                             },
                             {
-                                "code": "IN_SW-AP",
+                                "code": "SW-AP",
                                 "name": "Software – Application",
                                 "description": "Software che esegue funzioni specifiche su dispositivi come computer, smartphone o tablet.",
                                 "values": [
@@ -1186,7 +1186,7 @@
                                 ]
                             },
                             {
-                                "code": "IN_SW-OH",
+                                "code": "SW-OH",
                                 "name": "Software – Other",
                                 "description": "Racchiude tutti gli elementi software che non sono stati classificati nei sotto-predicati precedenti.",
                                 "values": [
@@ -1208,7 +1208,7 @@
                                 ]
                             },
                             {
-                                "code": "IN_IT",
+                                "code": "IT",
                                 "name": "Information Type",
                                 "description": "Identifica l’insieme di informazioni o dati che servono a uno specifico processo aziendale o attività dell'organizzazione.",
                                 "values": [
@@ -1245,7 +1245,7 @@
                                 ]
                             },
                             {
-                                "code": "IN_PE",
+                                "code": "PE",
                                 "name": "People",
                                 "description": "Individui interni o esterni all’organizzazione da cui dipende una funzione essenziale, un servizio essenziale o un asset ICT.",
                                 "values": [
@@ -1272,7 +1272,7 @@
                                 ]
                             },
                             {
-                                "code": "IN_LO",
+                                "code": "LO",
                                 "name": "Location",
                                 "description": "Identifica i locali pertinenti all'operatività dell'organizzazione e le relative infrastrutture fisiche.",
                                 "values": [
@@ -1299,7 +1299,7 @@
                                 ]
                             },
                             {
-                                "code": "IN_OT",
+                                "code": "OT",
                                 "name": "Other",
                                 "description": "Raccoglie tutti gli elementi Involved Asset non classificati nei sotto-predicati precedenti.",
                                 "values": [

@@ -2,17 +2,12 @@ FROM python:3.11-slim
 
 WORKDIR /app
 
-# Installa dipendenze di sistema
-RUN apt-get update && apt-get install -y \
-    gcc \
-    postgresql-client \
-    && rm -rf /var/lib/apt/lists/*
-
-# Copia requirements
+# Copia requirements e installa dipendenze Python
+# Non servono dipendenze di sistema: psycopg2-binary è pre-compilato
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Copia il codice
+# Copia il codice dell'applicazione
 COPY . .
 
 # Esponi porta

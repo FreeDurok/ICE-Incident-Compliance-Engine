@@ -4,6 +4,7 @@ import './BuilderPage.css';
 import { taxonomyAPI, incidentsAPI } from '../services/api';
 import { MacroCategory } from '../types/taxonomy';
 import { IncidentCreate, Incident } from '../types/incident';
+import { groupCodesByTaxonomyKey, extractAllCodesFromTaxonomyDict } from '../utils/taxonomyHelpers';
 
 interface Block {
   id: string;
@@ -97,89 +98,24 @@ const EditIncidentPage: React.FC = () => {
     setDescription(incident.description || '');
     setNotes(incident.notes || '');
     setDiscoveredAt(incident.discovered_at ? incident.discovered_at.slice(0, 16) : '');
-    const detailsMap = incident.block_details || {};
+    const detailsMap = incident.code_details || {};
 
-    // Trova tutti i blocchi che corrispondono ai codici nell'incidente
+    // Estrai tutti i codici dal dizionario taxonomy_codes dinamico
+    const allCodes = extractAllCodesFromTaxonomyDict(incident.taxonomy_codes || {});
+
+    // Trova tutti i blocchi che corrispondono ai codici
     const selected: Block[] = [];
-
-    // Impact
-    incident.impact?.forEach((code) => {
+    allCodes.forEach((code) => {
       const block = blocks.find((b) => b.code === code);
-      if (block) selected.push(block);
+      if (block) {
+        selected.push({
+          ...block,
+          detail: detailsMap[code] || '',
+        });
+      }
     });
 
-    // Root cause
-    if (incident.root_cause) {
-      const block = blocks.find((b) => b.code === incident.root_cause);
-      if (block) selected.push(block);
-    }
-
-    // Severity
-    if (incident.severity) {
-      const block = blocks.find((b) => b.code === incident.severity);
-      if (block) selected.push(block);
-    }
-
-    // Victim Geography
-    incident.victim_geography?.forEach((code) => {
-      const block = blocks.find((b) => b.code === code);
-      if (block) selected.push(block);
-    });
-
-    // Threat Types
-    incident.threat_types?.forEach((code) => {
-      const block = blocks.find((b) => b.code === code);
-      if (block) selected.push(block);
-    });
-
-    // Adversary
-    if (incident.adversary_motivation) {
-      const block = blocks.find((b) => b.code === incident.adversary_motivation);
-      if (block) selected.push(block);
-    }
-
-    if (incident.adversary_type) {
-      const block = blocks.find((b) => b.code === incident.adversary_type);
-      if (block) selected.push(block);
-    }
-
-    // Vectors
-    incident.vectors?.forEach((code) => {
-      const block = blocks.find((b) => b.code === code);
-      if (block) selected.push(block);
-    });
-
-    // Involved Assets
-    incident.involved_assets?.forEach((code) => {
-      const block = blocks.find((b) => b.code === code);
-      if (block) selected.push(block);
-    });
-
-    // Outlook
-    if (incident.outlook) {
-      const block = blocks.find((b) => b.code === incident.outlook);
-      if (block) selected.push(block);
-    }
-
-    // Physical Security
-    incident.physical_security?.forEach((code) => {
-      const block = blocks.find((b) => b.code === code);
-      if (block) selected.push(block);
-    });
-
-    // Abusive Content
-    incident.abusive_content?.forEach((code) => {
-      const block = blocks.find((b) => b.code === code);
-      if (block) selected.push(block);
-    });
-
-    // Applica eventuali dettagli salvati
-    const withDetails = selected.map((b) => ({
-      ...b,
-      detail: detailsMap[b.code] || '',
-    }));
-
-    setSelectedBlocks(withDetails);
+    setSelectedBlocks(selected);
   };
 
   const handleDragStart = (block: Block) => {
@@ -242,41 +178,28 @@ const EditIncidentPage: React.FC = () => {
       return;
     }
 
+    // Raccogli tutti i codici dai blocchi selezionati
+    const allCodes = selectedBlocks.map((block) => block.code);
+
+    // Costruisci code_details dai blocchi con dettagli
+    const codeDetails: Record<string, string> = {};
+    selectedBlocks.forEach((block) => {
+      if (block.detail && block.detail.trim()) {
+        codeDetails[block.code] = block.detail.trim();
+      }
+    });
+
+    // Usa l'helper per raggruppare automaticamente i codici
+    const taxonomyCodes = groupCodesByTaxonomyKey(allCodes);
+
     const incidentData: Partial<IncidentCreate> = {
       title,
       description: description || undefined,
       notes: notes || undefined,
       discovered_at: discoveredAt ? new Date(discoveredAt).toISOString() : undefined,
-      impact: [],
-      victim_geography: [],
-      threat_types: [],
-      involved_assets: [],
-      vectors: [],
-      physical_security: [],
-      abusive_content: [],
-      block_details: {},
+      taxonomy_codes: taxonomyCodes,
+      code_details: Object.keys(codeDetails).length > 0 ? codeDetails : undefined,
     };
-
-    selectedBlocks.forEach((block) => {
-      const code = block.code;
-      const predCode = block.predicate;
-      if (block.detail && block.detail.trim()) {
-        incidentData.block_details![code] = block.detail.trim();
-      }
-
-      if (predCode === 'IM') incidentData.impact?.push(code);
-      else if (predCode === 'RO') incidentData.root_cause = code;
-      else if (predCode === 'SE') incidentData.severity = code;
-      else if (predCode === 'VG') incidentData.victim_geography?.push(code);
-      else if (predCode === 'AM') incidentData.adversary_motivation = code;
-      else if (predCode === 'AD') incidentData.adversary_type = code;
-      else if (predCode === 'VE') incidentData.vectors?.push(code);
-      else if (predCode === 'OU') incidentData.outlook = code;
-      else if (predCode === 'IN') incidentData.involved_assets?.push(code);
-      else if (predCode === 'PH') incidentData.physical_security?.push(code);
-      else if (predCode === 'AB') incidentData.abusive_content?.push(code);
-      else if (block.category === 'TT') incidentData.threat_types?.push(code);
-    });
 
     try {
       await incidentsAPI.update(id, incidentData);

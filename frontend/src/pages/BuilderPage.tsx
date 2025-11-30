@@ -4,6 +4,7 @@ import './BuilderPage.css';
 import { taxonomyAPI, incidentsAPI } from '../services/api';
 import { MacroCategory, Predicate, SubPredicate } from '../types/taxonomy';
 import { IncidentCreate } from '../types/incident';
+import { groupCodesByTaxonomyKey } from '../utils/taxonomyHelpers';
 
 interface Block {
   id: string;
@@ -146,42 +147,29 @@ const BuilderPage: React.FC = () => {
       return;
     }
 
+    // Raccogli tutti i codici dai blocchi selezionati
+    const allCodes = selectedBlocks.map((block) => block.code);
+
+    // Costruisci code_details dai blocchi con dettagli
+    const codeDetails: Record<string, string> = {};
+    selectedBlocks.forEach((block) => {
+      if (block.detail && block.detail.trim()) {
+        codeDetails[block.code] = block.detail.trim();
+      }
+    });
+
+    // Usa l'helper per raggruppare automaticamente i codici
+    const taxonomyCodes = groupCodesByTaxonomyKey(allCodes);
+
     const incidentData: IncidentCreate = {
       title,
       description: description || undefined,
       notes: notes || undefined,
       discovered_at: discoveredAt ? new Date(discoveredAt).toISOString() : undefined,
-      impact: [],
-      victim_geography: [],
-      threat_types: [],
-      involved_assets: [],
-      vectors: [],
-      physical_security: [],
-      abusive_content: [],
+      taxonomy_codes: taxonomyCodes,
+      code_details: Object.keys(codeDetails).length > 0 ? codeDetails : undefined,
       tags: [],
     };
-
-    selectedBlocks.forEach((block) => {
-      const code = block.code;
-      const predCode = block.predicate;
-      if (block.detail && block.detail.trim()) {
-        incidentData.block_details = incidentData.block_details || {};
-        incidentData.block_details[code] = block.detail.trim();
-      }
-
-      if (predCode === 'IM') incidentData.impact?.push(code);
-      else if (predCode === 'RO') incidentData.root_cause = code;
-      else if (predCode === 'SE') incidentData.severity = code;
-      else if (predCode === 'VG') incidentData.victim_geography?.push(code);
-      else if (predCode === 'AM') incidentData.adversary_motivation = code;
-      else if (predCode === 'AD') incidentData.adversary_type = code;
-      else if (predCode === 'VE') incidentData.vectors?.push(code);
-      else if (predCode === 'OU') incidentData.outlook = code;
-      else if (predCode === 'IN') incidentData.involved_assets?.push(code);
-      else if (predCode === 'PH') incidentData.physical_security?.push(code);
-      else if (predCode === 'AB') incidentData.abusive_content?.push(code);
-      else if (block.category === 'TT') incidentData.threat_types?.push(code);
-    });
 
     try {
       const incident = await incidentsAPI.create(incidentData);
@@ -281,7 +269,7 @@ const BuilderPage: React.FC = () => {
       {/* Header */}
       <div className="builder-header">
         <div className="header-content">
-          <h1>🔧 Incident Builder</h1>
+          <h1>🔧 Incident Taxonomy Builder</h1>
           <p>Trascina i blocchi dalla libreria per costruire il tuo incidente</p>
         </div>
         <button className="btn btn-primary" onClick={handleSave} disabled={!title || selectedBlocks.length === 0}>
