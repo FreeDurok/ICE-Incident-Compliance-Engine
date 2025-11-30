@@ -22,7 +22,7 @@ async def lifespan(app: FastAPI):
 
 app = FastAPI(
     title="ICE - Incident Compliance Engine",
-    description="Piattaforma per la generazione guidata di report di incidente in conformità con la Tassonomia Cyber ACN",
+    description="Piattaforma per la generazione guidata di report di incidente seguendo la Tassonomia Cyber ACN",
     version="2.0.0",
     lifespan=lifespan
 )

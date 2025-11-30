@@ -1,6 +1,6 @@
 # ICE - Incident Compliance Engine
 
-Piattaforma modulare per la generazione guidata di report di incidente in conformità con la **Tassonomia Cyber ACN** (TC-ACN v2.0). Include GUI dinamica tipo wizard, modello dati estendibile, workflow di validazione. Completamente containerizzabile con Docker.
+Piattaforma modulare per la generazione guidata di report di incidente basati sulla **Tassonomia Cyber ACN** (TC-ACN v2.0). Include GUI dinamica tipo wizard, modello dati estendibile, workflow di validazione. Completamente containerizzabile con Docker.
 
 ## 🚀 Caratteristiche
 

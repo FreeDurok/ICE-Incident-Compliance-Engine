@@ -34,7 +34,7 @@ const HomePage: React.FC = () => {
           <div style={{ fontSize: '3rem', marginBottom: '1rem' }}>📊</div>
           <h3 style={{ fontSize: '1.25rem', marginBottom: '0.75rem' }}>Export Multipli</h3>
           <p style={{ color: 'var(--text-secondary)', lineHeight: 1.6 }}>
-            Genera report PDF e JSON conformi alla tassonomia
+            Genera report PDF e JSON basati sulla tassonomia
           </p>
         </div>
 
